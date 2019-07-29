@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">MyMovieCatalogue</string>
+
+    <string name="read_more">Read More...</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="rate">Ratings</string>
+    <string name="about">About</string>
+    <string name="synopsis">Description</string>
+    <string name="director">Director</string>
+    <string name="year">Year</string>
+    <string name="sponsor">Sponsored</string>
+    <string name="change_language_settings">Change Language Settings</string>
+    <string name="creator">Creator</string>
+    <string name="movie">Movie</string>
+    <string name="tvshows">TV Show</string>
+    <string name="error_message">Sorry, There Was A Problem Occurred, Please Check Your Internet Connection.</string>
+    <string name="error">Error</string>
+    <string name="load_message">Getting Movie Information...</string>
+    <string name="load">Loading</string>
+</resources>

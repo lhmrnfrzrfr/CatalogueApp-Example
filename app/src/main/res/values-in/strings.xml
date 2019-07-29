@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">MyMovieCatalogue</string>
+
+    <string name="read_more">Baca Selengkapnya...</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="rate">Peringkat</string>
+    <string name="about">Tentang</string>
+    <string name="synopsis">Deskripsi</string>
+    <string name="director">Direktur</string>
+    <string name="year">Tahun</string>
+    <string name="sponsor">Didukung Oleh</string>
+    <string name="change_language_settings">Ubah Pengaturan Bahasa</string>
+    <string name="creator">Pembuat</string>
+    <string name="movie">Film</string>
+    <string name="tvshows">Acara TV</string>
+    <string name="error_message">Maaf, Telah Terjadi Masalah, Silahkan Periksa Koneksi Internet Anda.</string>
+    <string name="error">Kesalahan</string>
+    <string name="load_message">Mengambil Informasi Film...</string>
+    <string name="load">Mohon Tunggu</string>
+</resources>
