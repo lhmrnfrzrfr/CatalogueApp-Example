@@ -17,4 +17,27 @@
     <string name="error">Error</string>
     <string name="load_message">Getting Movie Information...</string>
     <string name="load">Loading</string>
+
+    <string name="todo">TODO</string>
+    <string name="movie_catalogue">Movie Catalogue</string>
+    <string name="tv_show">TV Show</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="favorite">Favorite</string>
+    <string name="like">Add to Favorite</string>
+    <string name="dislike">Remove from Favorite</string>
+    <string name="FailedDislike">Failed to remove from Favorite</string>
+    <string name="FailedLike">Failed to add to Favorite</string>
+    <string name="choose_a_nmovie_for_today">Choose a\nmovie for today</string>
+    <string name="find_a_movie_that_interest_you">Find a movie that interest you</string>
+    <string name="choose_a_ntv_show_for_today">Choose a\nTV show for today</string>
+    <string name="find_a_tv_show_that_interest_you">Find a TV show that interest you</string>
+    <string name="set_reminder">Set reminder</string>
+    <string name="settings">Settings</string>
+    <string name="daily_reminder">Daily Reminder</string>
+    <string name="check_daily">Check what movie you should watch today on our app!</string>
+    <string name="a_reminder_for_showing_the_movie_nthat_released_today">A reminder for showing\nthe movie that released today</string>
+    <string name="a_reminder_to_return_to_the_app">A reminder to return to the app</string>
+    <string name="release_reminder">Release Reminder</string>
+    <string name="hasReleased">\u0020has been released today!</string>
 </resources>

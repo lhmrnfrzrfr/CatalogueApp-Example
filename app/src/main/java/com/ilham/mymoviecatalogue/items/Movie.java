@@ -1,9 +1,14 @@
 package com.ilham.mymoviecatalogue.items;
 
+import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.ilham.mymoviecatalogue.database.DatabaseContract;
+
 import java.util.List;
+
+import static android.provider.BaseColumns._ID;
 
 public class Movie {
 
@@ -87,7 +92,7 @@ public class Movie {
         }
     }
 
-    public static class ResultsBean implements Parcelable {
+    public static class ResultsBean extends Movie implements Parcelable {
         /**
          * vote_count : 697
          * id : 420818
@@ -136,7 +141,7 @@ public class Movie {
             release_date = in.readString();
         }
 
-        public static final Creator<ResultsBean> CREATOR = new Creator<ResultsBean>() {
+        public static final Parcelable.Creator<ResultsBean> CREATOR = new Parcelable.Creator<ResultsBean>() {
             @Override
             public ResultsBean createFromParcel(Parcel in) {
                 return new ResultsBean(in);
@@ -281,7 +286,29 @@ public class Movie {
             dest.writeString(overview);
             dest.writeString(release_date);
         }
+
         public ResultsBean() {
+
+        }
+
+        public ResultsBean(int id, String title, String released, String poster, String overview, String backdrop, double score) {
+            this.id = id;
+            this.title = title;
+            this.release_date = released;
+            this.poster_path = poster;
+            this.overview = overview;
+            this.backdrop_path = backdrop;
+            this.vote_average = score;
+        }
+
+        public ResultsBean(Cursor cursor) {
+            this.id = DatabaseContract.getColumnInt(cursor, _ID);
+            this.title = DatabaseContract.getColumnString(cursor, DatabaseContract.MovieColumns.TITLE);
+            this.release_date = DatabaseContract.getColumnString(cursor, DatabaseContract.MovieColumns.RELEASED);
+            this.poster_path = DatabaseContract.getColumnString(cursor, DatabaseContract.MovieColumns.POSTER);
+            this.overview = DatabaseContract.getColumnString(cursor, DatabaseContract.MovieColumns.OVERVIEW);
+            this.backdrop_path = DatabaseContract.getColumnString(cursor, DatabaseContract.MovieColumns.BACKDROP);
+            this.vote_average = DatabaseContract.getColumnDouble(cursor, DatabaseContract.MovieColumns.SCORE);
         }
     }
 }

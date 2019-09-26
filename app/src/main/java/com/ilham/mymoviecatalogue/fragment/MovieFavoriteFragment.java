@@ -1,4 +1,4 @@
-package dicoding.adrian.submission4.favorite.MovieFavorite;
+package com.ilham.mymoviecatalogue.fragment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,62 +17,54 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.ilham.mymoviecatalogue.LoadMoviesCallback;
+import com.ilham.mymoviecatalogue.R;
+import com.ilham.mymoviecatalogue.activity.DetailMovieFavoriteActivity;
+import com.ilham.mymoviecatalogue.activity.MovieDetailActivity;
+import com.ilham.mymoviecatalogue.adapter.MovieFavoriteAdapter;
+import com.ilham.mymoviecatalogue.database.MappingHelper;
+import com.ilham.mymoviecatalogue.items.Movie;
+
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import dicoding.adrian.submission4.favorite.MovieFavorite.Adapter.MovieFavoriteAdapter;
-import dicoding.adrian.submission4.features.contentprovider.MappingHelper;
-import dicoding.adrian.submission4.movie.DetailMovieActivity;
-import dicoding.adrian.submission4.movie.MovieItems;
-import dicoding.adrian.submission4.R;
-
-import static dicoding.adrian.submission4.favorite.MovieFavorite.Database.DatabaseContract.MovieColumns.CONTENT_URI;
+import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.CONTENT_URI;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MovieFavoriteFragment extends Fragment implements LoadMoviesCallback {
 
-    // Widgets, Array, Adapter, Helper Variable Declaration
     RecyclerView rvFavoriteMovies;
     MovieFavoriteAdapter adapter;
 
-    // Default Value
     private static final String EXTRA_STATE = "EXTRA_STATE";
 
-    // Empty Constructor
     public MovieFavoriteFragment() {
-        // Required empty public constructor
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Cast Recyclerview
         rvFavoriteMovies = view.findViewById(R.id.rv_movie_favorite);
 
-        // Layout Manager
         rvFavoriteMovies.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
-        // Divider between item list
         DividerItemDecoration itemDecorator = new DividerItemDecoration(Objects.requireNonNull(getContext()), DividerItemDecoration.HORIZONTAL);
         itemDecorator.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(Objects.requireNonNull(getContext()), R.drawable.divider)));
         rvFavoriteMovies.addItemDecoration(itemDecorator);
         rvFavoriteMovies.setHasFixedSize(true);
 
-        // Adapter Instance
         adapter = new MovieFavoriteAdapter(getActivity());
 
-        // Set Adapter
         rvFavoriteMovies.setAdapter(adapter);
 
-        // SavedInstanceState
         if (savedInstanceState == null) {
             new LoadMoviesAsync(Objects.requireNonNull(getActivity()).getApplicationContext(), this).execute();
         } else {
-            ArrayList<MovieItems> list = savedInstanceState.getParcelableArrayList(EXTRA_STATE);
+            ArrayList<Movie.ResultsBean> list = savedInstanceState.getParcelableArrayList(EXTRA_STATE);
             if (list != null) {
                 adapter.setListMovie(list);
             }
@@ -88,7 +80,6 @@ public class MovieFavoriteFragment extends Fragment implements LoadMoviesCallbac
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_movie_favorite, container, false);
     }
 
@@ -97,18 +88,17 @@ public class MovieFavoriteFragment extends Fragment implements LoadMoviesCallbac
         Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                // Loading Progress
             }
         });
     }
 
     @Override
     public void postExecute(Cursor movies) {
-        ArrayList<MovieItems> listMovies = MappingHelper.mapCursorToArrayList(movies);
+        ArrayList<Movie.ResultsBean> listMovies = MappingHelper.mapCursorToArrayList(movies);
         if (listMovies.size() > 0) {
             adapter.setListMovie(listMovies);
         } else {
-            adapter.setListMovie(new ArrayList<MovieItems>());
+            adapter.setListMovie(new ArrayList<Movie.ResultsBean>());
             Toast.makeText(getActivity(), "Tidak ada data saat ini", Toast.LENGTH_SHORT).show();
         }
     }
@@ -147,9 +137,9 @@ public class MovieFavoriteFragment extends Fragment implements LoadMoviesCallbac
         super.onActivityResult(requestCode, resultCode, data);
 
         if (data != null) {
-            if (requestCode == DetailMovieActivity.REQUEST_ADD) {
-                if (resultCode == DetailMovieActivity.RESULT_ADD) {
-                    MovieItems movieItems = data.getParcelableExtra(DetailMovieActivity.EXTRA_MOVIE);
+            if (requestCode == MovieDetailActivity.REQUEST_ADD) {
+                if (resultCode == MovieDetailActivity.RESULT_ADD) {
+                    Movie.ResultsBean movieItems = data.getParcelableExtra(MovieDetailActivity.EXTRA_MOVIE);
                     adapter.addItem(movieItems);
                     rvFavoriteMovies.smoothScrollToPosition(adapter.getItemCount() - 1);
                 }

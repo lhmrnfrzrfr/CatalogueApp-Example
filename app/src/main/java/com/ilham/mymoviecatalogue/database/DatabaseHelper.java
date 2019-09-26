@@ -1,4 +1,4 @@
-package dicoding.adrian.submission4.favorite.MovieFavorite.Database;
+package com.ilham.mymoviecatalogue.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

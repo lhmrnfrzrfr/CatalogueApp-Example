@@ -3,7 +3,9 @@ package com.ilham.mymoviecatalogue.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.design.widget.TabLayout;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,12 +14,13 @@ import android.view.MenuItem;
 
 import com.ilham.mymoviecatalogue.R;
 import com.ilham.mymoviecatalogue.adapter.FragmentPagerAdapter;
+import com.ilham.mymoviecatalogue.fragment.FavoriteFragment;
 import com.ilham.mymoviecatalogue.fragment.MovieFragment;
 import com.ilham.mymoviecatalogue.fragment.TVFragment;
 
 public class TabbedActivity extends AppCompatActivity {
 
-    private TabLayout tabLayout;
+    private BottomNavigationView tabLayout;
     private ViewPager viewPager;
     private FragmentPagerAdapter adapter;
 
@@ -25,24 +28,45 @@ public class TabbedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tabbed);
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.view_pager, MovieFragment.newInstance())
-                    .commitNow();
-        }
 
+        // Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        tabLayout = findViewById(R.id.tabs);
-        viewPager = findViewById(R.id.view_pager);
-        adapter = new FragmentPagerAdapter(getSupportFragmentManager());
 
+        // Bottom Navigation Declaration
+        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        adapter.AddFragment(new MovieFragment(), getResources().getString(R.string.movie));
-        adapter.AddFragment(new TVFragment(), getResources().getString(R.string.tvshows));
-        viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
+        // The first fragment to show when open the app
+        if (savedInstanceState == null) {
+            navigation.setSelectedItemId(R.id.nav_movie);
+        }
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+            Fragment selectedFragment = null;
+
+            switch (menuItem.getItemId()) {
+                case R.id.nav_movie:
+                    selectedFragment = new MovieFragment();
+                    break;
+                case R.id.nav_tv:
+                    selectedFragment = new TVFragment();
+                    break;
+                case R.id.nav_favorites:
+                    selectedFragment = new FavoriteFragment();
+                    break;
+
+            }
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.frame_container, selectedFragment)
+                    .commit();
+            return true;
+        }
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

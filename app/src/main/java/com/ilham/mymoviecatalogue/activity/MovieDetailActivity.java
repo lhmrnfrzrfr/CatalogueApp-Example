@@ -38,6 +38,12 @@ public class MovieDetailActivity extends AppCompatActivity {
     private static final String STATE_COVER = "state_cover";
     private static final String STATE_YEAR = "state_year";
 
+    public static final int REQUEST_ADD = 100;
+    public static final int RESULT_ADD = 101;
+
+    public static final String EXTRA_MOVIE = "extra_movie";
+    public static final String EXTRA_POSITION = "extra_position";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

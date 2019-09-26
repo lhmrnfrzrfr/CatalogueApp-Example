@@ -1,4 +1,4 @@
-package dicoding.adrian.submission4.favorite.MovieFavorite.Database;
+package com.ilham.mymoviecatalogue.database;
 
 import android.database.Cursor;
 import android.net.Uri;
@@ -6,7 +6,7 @@ import android.provider.BaseColumns;
 
 public final class DatabaseContract {
 
-    public static final String AUTHORITY = "dicoding.adrian.submission4";
+    public static final String AUTHORITY = "moviecatalogue";
     private static final String SCHEME = "content";
 
     private DatabaseContract() {

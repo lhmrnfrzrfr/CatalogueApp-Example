@@ -1,4 +1,4 @@
-package dicoding.adrian.submission4.favorite.MovieFavorite.Adapter;
+package com.ilham.mymoviecatalogue.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -20,30 +20,29 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.ilham.mymoviecatalogue.CustomOnItemClickListener;
+import com.ilham.mymoviecatalogue.R;
+import com.ilham.mymoviecatalogue.activity.DetailMovieFavoriteActivity;
+import com.ilham.mymoviecatalogue.items.Movie;
 
 import java.util.ArrayList;
 
-import dicoding.adrian.submission4.basic.CustomOnItemClickListener;
-import dicoding.adrian.submission4.favorite.MovieFavorite.DetailMovieFavoriteActivity;
-import dicoding.adrian.submission4.movie.MovieItems;
-import dicoding.adrian.submission4.R;
-
-import static dicoding.adrian.submission4.favorite.MovieFavorite.Database.DatabaseContract.MovieColumns.CONTENT_URI;
+import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.CONTENT_URI;
 
 public class MovieFavoriteAdapter extends RecyclerView.Adapter<MovieFavoriteAdapter.MovieFavoriteViewHolder> {
 
-    private ArrayList<MovieItems> listMovies = new ArrayList<>();
+    private ArrayList<Movie.ResultsBean> listMovies = new ArrayList<>();
     private Activity activity;
 
     public MovieFavoriteAdapter(Activity activity) {
         this.activity = activity;
     }
 
-    public ArrayList<MovieItems> getListMovies() {
+    public ArrayList<Movie.ResultsBean> getListMovies() {
         return listMovies;
     }
 
-    public void setListMovie(ArrayList<MovieItems> listMovies) {
+    public void setListMovie(ArrayList<Movie.ResultsBean> listMovies) {
         if (listMovies.size() > 0) {
             this.listMovies.clear();
         }
@@ -51,7 +50,7 @@ public class MovieFavoriteAdapter extends RecyclerView.Adapter<MovieFavoriteAdap
         notifyDataSetChanged();
     }
 
-    public void addItem(MovieItems movieItems) {
+    public void addItem(Movie.ResultsBean movieItems) {
         this.listMovies.add(movieItems);
         notifyItemInserted(listMovies.size() - 1);
     }
@@ -72,12 +71,10 @@ public class MovieFavoriteAdapter extends RecyclerView.Adapter<MovieFavoriteAdap
     @Override
     public void onBindViewHolder(@NonNull final MovieFavoriteAdapter.MovieFavoriteViewHolder holder, int position) {
 
-        // String value
-        double score = getListMovies().get(position).getScore() * 10;
+        double score = getListMovies().get(position).getVote_average() * 10;
         holder.tvScore.setText(String.valueOf((int) score));
 
-        // Image Value
-        String uri = "https://image.tmdb.org/t/p/original" + getListMovies().get(position).getPoster();
+        String uri = "https://image.tmdb.org/t/p/original" + getListMovies().get(position).getPoster_path();
         Glide.with(holder.itemView.getContext())
                 .load(uri)
                 .listener(new RequestListener<Drawable>() {

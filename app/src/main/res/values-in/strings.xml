@@ -17,4 +17,26 @@
     <string name="error">Kesalahan</string>
     <string name="load_message">Mengambil Informasi Film...</string>
     <string name="load">Mohon Tunggu</string>
+
+    <string name="todo">TODO</string>
+    <string name="movie_catalogue">Katalog Film</string>
+    <string name="tv_show">Acara TV</string>
+
+    <string name="favorite">Kesukaan</string>
+    <string name="like">Menambahkan ke Kesukaan</string>
+    <string name="dislike">Menghapus dari Kesukaan</string>
+    <string name="FailedDislike">Gagal menghapus dari Kesukaan</string>
+    <string name="FailedLike">Gsgal menambahkan ke Kesukaan</string>
+    <string name="choose_a_nmovie_for_today">Pilih film\nuntuk hari ini</string>
+    <string name="find_a_movie_that_interest_you">Cari film yang anda suka</string>
+    <string name="choose_a_ntv_show_for_today">Pilih acara TV\nuntuk hari ini</string>
+    <string name="find_a_tv_show_that_interest_you">Cari acara TV yang anda suka</string>
+    <string name="set_reminder">Atur pengingat</string>
+    <string name="settings">Pengaturan</string>
+    <string name="daily_reminder">Pengingat Harian</string>
+    <string name="check_daily">Cek film yang akan anda tonton hari ini di app kami!</string>
+    <string name="release_reminder">Pengingat Rilis</string>
+    <string name="a_reminder_for_showing_the_movie_nthat_released_today">Sebuah pengingat film\nyang rilis hari ini</string>
+    <string name="a_reminder_to_return_to_the_app">Sebuah pengingat untuk\nkembali ke app</string>
+    <string name="hasReleased">\u0020telah rilis hari ini!</string>
 </resources>
