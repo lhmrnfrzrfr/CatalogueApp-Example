@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".favorite.TvFavorite.DetailTvFavoriteActivity">
+    tools:context=".activity.TvShowFavDetailActivity">
 
     <ImageView
         android:id="@+id/poster_banner_favorite_tv"
@@ -105,7 +105,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="20dp"
-        android:background="@drawable/ripple_dislike_bg"
+        android:background="@color/colorAccent"
         android:text="@string/dislike"
         android:textAllCaps="false"
         android:textColor="@color/white"

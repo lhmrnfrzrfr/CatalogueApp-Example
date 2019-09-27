@@ -179,7 +179,8 @@ public class MovieDetailActivity extends AppCompatActivity {
                                 editor.putBoolean("Favorite Removed", true);
                                 editor.apply();
                                 getContentResolver().delete(Uri.parse(CONTENT_URI + "/" + movie_id), null, null);
-                                Snackbar.make(buttonView, "Removed from Favorite",
+                                String unLike = getString(R.string.dislike);
+                                Snackbar.make(buttonView, unLike,
                                         Snackbar.LENGTH_SHORT).show();
                             }
                         }
@@ -219,7 +220,8 @@ public class MovieDetailActivity extends AppCompatActivity {
                                 editor.putBoolean("Favorite Removed", true);
                                 editor.apply();
                                 getContentResolver().delete(Uri.parse(CONTENT_URI + "/" + movie_id), null, null);
-                                Snackbar.make(buttonView, "Removed from Favorite",
+                                String unLike = getString(R.string.dislike);
+                                Snackbar.make(buttonView, unLike,
                                         Snackbar.LENGTH_SHORT).show();
                             }
                         }

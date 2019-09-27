@@ -152,7 +152,8 @@ public class TvShowDetailActivity extends AppCompatActivity {
                                 long result = tvHelper.deleteTv(tv.getId());
                                 if (result > 0) {
                                     setResult(RESULT_DELETE);
-                                    Snackbar.make(buttonView, "Removed from Favorite",
+                                    String unLike = getString(R.string.dislike);
+                                    Snackbar.make(buttonView, unLike,
                                             Snackbar.LENGTH_SHORT).show();
                                 }
                             }
@@ -186,7 +187,8 @@ public class TvShowDetailActivity extends AppCompatActivity {
                                 long result = tvHelper.deleteTv(tv.getId());
                                 if (result > 0) {
                                     setResult(RESULT_DELETE);
-                                    Snackbar.make(buttonView, "Removed from Favorite",
+                                    String unLike = getString(R.string.dislike);
+                                    Snackbar.make(buttonView, unLike,
                                             Snackbar.LENGTH_SHORT).show();
                                 }
                             }

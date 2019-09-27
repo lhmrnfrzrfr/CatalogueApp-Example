@@ -58,8 +58,8 @@ public class TabbedActivity extends AppCompatActivity {
                 case R.id.nav_favorites:
                     selectedFragment = new FavoriteFragment();
                     break;
-
             }
+
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.frame_container, selectedFragment)
