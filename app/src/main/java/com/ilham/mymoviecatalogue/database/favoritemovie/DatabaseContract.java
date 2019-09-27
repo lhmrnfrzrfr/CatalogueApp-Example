@@ -1,4 +1,4 @@
-package com.ilham.mymoviecatalogue.database;
+package com.ilham.mymoviecatalogue.database.favoritemovie;
 
 import android.database.Cursor;
 import android.net.Uri;

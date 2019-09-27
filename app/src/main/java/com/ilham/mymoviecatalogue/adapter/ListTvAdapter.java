@@ -23,6 +23,10 @@ public class ListTvAdapter extends RecyclerView.Adapter<ListTvAdapter.CardViewVi
     private Context context;
     private ArrayList<Tv.ResultsBean> listTv;
 
+    public ListTvAdapter() {
+
+    }
+
     public final boolean isAdded() {
         return true;
     }
@@ -47,7 +51,6 @@ public class ListTvAdapter extends RecyclerView.Adapter<ListTvAdapter.CardViewVi
     public CardViewViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_tv, viewGroup, false);
         final CardViewViewHolder viewHolder = new CardViewViewHolder(view);
-
         viewHolder.item_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

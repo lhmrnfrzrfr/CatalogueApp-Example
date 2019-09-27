@@ -1,12 +1,10 @@
 package com.ilham.mymoviecatalogue.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,10 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.Objects;
-
 import com.ilham.mymoviecatalogue.R;
 import com.ilham.mymoviecatalogue.adapter.FragmentPagerAdapter;
+
+import java.util.Objects;
 
 public class FavoriteFragment extends Fragment {
 
@@ -37,7 +35,7 @@ public class FavoriteFragment extends Fragment {
         FragmentPagerAdapter adapter = new FragmentPagerAdapter(getChildFragmentManager());
 
         adapter.AddFragment(new MovieFavoriteFragment(), getString(R.string.movie));
-        adapter.AddFragment(new TVFragment(), getString(R.string.tvshows));
+        adapter.AddFragment(new TvFavoriteFragment(), getString(R.string.tvshows));
 
         viewPagerFavorite.setAdapter(adapter);
         tabLayoutFavorite.setupWithViewPager(viewPagerFavorite);
@@ -53,11 +51,12 @@ public class FavoriteFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
     }
+
     @Override
     public void onStop() {
         super.onStop();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
     }
 }

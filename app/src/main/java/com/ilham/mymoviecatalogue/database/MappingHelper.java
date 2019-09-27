@@ -6,14 +6,13 @@ import com.ilham.mymoviecatalogue.items.Movie;
 
 import java.util.ArrayList;
 
-import static android.os.Build.VERSION.RELEASE;
 import static android.provider.BaseColumns._ID;
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.BACKDROP;
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.OVERVIEW;
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.POSTER;
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.RELEASED;
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.SCORE;
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.TITLE;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.BACKDROP;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.OVERVIEW;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.POSTER;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.RELEASED;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.SCORE;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.TITLE;
 
 public class MappingHelper {
 
@@ -21,7 +20,7 @@ public class MappingHelper {
 
         ArrayList<Movie.ResultsBean> moviesList = new ArrayList<>();
 
-        if(moviesCursor != null) {
+        if (moviesCursor != null) {
             while (moviesCursor.moveToNext()) {
                 int id = moviesCursor.getInt(moviesCursor.getColumnIndexOrThrow(_ID));
                 String title = moviesCursor.getString(moviesCursor.getColumnIndexOrThrow(TITLE));

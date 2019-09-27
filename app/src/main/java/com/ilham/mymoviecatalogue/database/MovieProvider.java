@@ -8,11 +8,13 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.ilham.mymoviecatalogue.database.favoritemovie.MovieHelper;
+
 import java.util.Objects;
 
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.AUTHORITY;
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.CONTENT_URI;
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.TABLE_MOVIE;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.AUTHORITY;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.CONTENT_URI;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.TABLE_MOVIE;
 
 public class MovieProvider extends ContentProvider {
 

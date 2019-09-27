@@ -1,4 +1,4 @@
-package com.ilham.mymoviecatalogue.database;
+package com.ilham.mymoviecatalogue.database.favoritemovie;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -12,13 +12,13 @@ import com.ilham.mymoviecatalogue.items.Movie;
 import java.util.ArrayList;
 
 import static android.provider.BaseColumns._ID;
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.BACKDROP;
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.OVERVIEW;
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.POSTER;
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.RELEASED;
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.SCORE;
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.TABLE_MOVIE;
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.TITLE;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.BACKDROP;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.OVERVIEW;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.POSTER;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.RELEASED;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.SCORE;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.TABLE_MOVIE;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.TITLE;
 
 public class MovieHelper {
 
@@ -119,11 +119,11 @@ public class MovieHelper {
                 , _ID + " ASC");
     }
 
-    public boolean checkData(int id){
+    public boolean checkData(int id) {
         Cursor cursor;
-        cursor = database.rawQuery("select * from "+DATABASE_TABLE+" where "+_ID+" = "+id+"",null);
+        cursor = database.rawQuery("select * from " + DATABASE_TABLE + " where " + _ID + " = " + id + "", null);
         cursor.moveToFirst();
-        if(cursor.getCount() <= 0){
+        if (cursor.getCount() <= 0) {
             cursor.close();
             return false;
         }

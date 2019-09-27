@@ -112,7 +112,7 @@ public class Tv implements Parcelable {
         private List<Integer> genre_ids;
         private List<String> origin_country;
 
-        protected ResultsBean(Parcel in) {
+        public ResultsBean(Parcel in) {
             original_name = in.readString();
             name = in.readString();
             popularity = in.readDouble();
@@ -138,6 +138,10 @@ public class Tv implements Parcelable {
                 return new ResultsBean[size];
             }
         };
+
+        public ResultsBean() {
+
+        }
 
         public String getOriginal_name() {
             return original_name;

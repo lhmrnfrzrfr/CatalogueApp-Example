@@ -1,4 +1,4 @@
-package com.ilham.mymoviecatalogue.database;
+package com.ilham.mymoviecatalogue.database.tvfavorite;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static String DATABASE_NAME = "dbmovieapp";
+    private static String DATABASE_NAME = "dbtvapp";
 
     private static final int DATABASE_VERSION = 1;
 
@@ -18,17 +18,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     " %s TEXT NOT NULL," +
                     " %s TEXT NOT NULL," +
                     " %s TEXT NOT NULL)",
-            DatabaseContract.MovieColumns.TABLE_MOVIE,
-            DatabaseContract.MovieColumns._ID,
-            DatabaseContract.MovieColumns.TITLE,
-            DatabaseContract.MovieColumns.POSTER,
-            DatabaseContract.MovieColumns.OVERVIEW,
-            DatabaseContract.MovieColumns.RELEASED,
-            DatabaseContract.MovieColumns.SCORE,
-            DatabaseContract.MovieColumns.BACKDROP
+            DatabaseContract.TABLE_TV,
+            DatabaseContract.TvColumns._ID,
+            DatabaseContract.TvColumns.TITLE_TV,
+            DatabaseContract.TvColumns.POSTER_TV,
+            DatabaseContract.TvColumns.BACKDROP_TV,
+            DatabaseContract.TvColumns.OVERVIEW_TV,
+            DatabaseContract.TvColumns.RELEASED_TV,
+            DatabaseContract.TvColumns.SCORE_TV
     );
 
-    public DatabaseHelper(Context context) {
+    DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -39,7 +39,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + DatabaseContract.MovieColumns.TABLE_MOVIE);
+        db.execSQL("DROP TABLE IF EXISTS " + DatabaseContract.TABLE_TV);
         onCreate(db);
     }
 }

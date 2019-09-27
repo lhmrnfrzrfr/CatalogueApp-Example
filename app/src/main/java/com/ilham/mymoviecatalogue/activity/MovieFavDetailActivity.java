@@ -28,12 +28,12 @@ import com.ilham.mymoviecatalogue.items.Movie;
 
 import java.util.Objects;
 
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.BACKDROP;
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.OVERVIEW;
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.POSTER;
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.RELEASED;
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.SCORE;
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.TITLE;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.BACKDROP;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.OVERVIEW;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.POSTER;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.RELEASED;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.SCORE;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.TITLE;
 
 public class MovieFavDetailActivity extends AppCompatActivity {
 

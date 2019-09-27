@@ -27,7 +27,7 @@ import com.ilham.mymoviecatalogue.items.Movie;
 
 import java.util.ArrayList;
 
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.CONTENT_URI;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.CONTENT_URI;
 
 public class MovieFavoriteAdapter extends RecyclerView.Adapter<MovieFavoriteAdapter.MovieFavoriteViewHolder> {
 
@@ -91,11 +91,11 @@ public class MovieFavoriteAdapter extends RecyclerView.Adapter<MovieFavoriteAdap
                 })
                 .into(holder.ivPoster);
 
-        // Intent To Detail Activity
+
         holder.itemFavoriteMovie.setOnClickListener(new CustomOnItemClickListener(position, new CustomOnItemClickListener.OnItemClickCallback() {
             @Override
             public void onItemClicked(View view, int position) {
-                // Define and Start Intent
+
                 Intent intent = new Intent(activity, MovieFavDetailActivity.class);
 
                 Uri uri = Uri.parse(CONTENT_URI + "/" + getListMovies().get(position).getId());
@@ -105,7 +105,6 @@ public class MovieFavoriteAdapter extends RecyclerView.Adapter<MovieFavoriteAdap
                 intent.putExtra(MovieFavDetailActivity.EXTRA_MOVIE, listMovies.get(position));
                 activity.startActivityForResult(intent, MovieFavDetailActivity.REQUEST_UPDATE);
 
-                // Intent Transition Animation
                 activity.overridePendingTransition(R.anim.slide_up, R.anim.no_animation);
             }
         }));

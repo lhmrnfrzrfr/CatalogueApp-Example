@@ -17,18 +17,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.ilham.mymoviecatalogue.LoadMoviesCallback;
 import com.ilham.mymoviecatalogue.R;
 import com.ilham.mymoviecatalogue.activity.MovieDetailActivity;
 import com.ilham.mymoviecatalogue.adapter.MovieFavoriteAdapter;
 import com.ilham.mymoviecatalogue.database.MappingHelper;
+import com.ilham.mymoviecatalogue.database.favoritemovie.LoadMoviesCallback;
 import com.ilham.mymoviecatalogue.items.Movie;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.CONTENT_URI;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.CONTENT_URI;
 
 /**
  * A simple {@link Fragment} subclass.

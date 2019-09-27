@@ -7,26 +7,21 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
 import com.github.ivbaranov.mfb.MaterialFavoriteButton;
 import com.ilham.mymoviecatalogue.R;
-import com.ilham.mymoviecatalogue.database.MovieHelper;
+import com.ilham.mymoviecatalogue.database.favoritemovie.MovieHelper;
 import com.ilham.mymoviecatalogue.items.Movie;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -43,14 +38,13 @@ import java.util.Objects;
 import cz.msebera.android.httpclient.Header;
 
 import static android.provider.BaseColumns._ID;
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.BACKDROP;
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.CONTENT_URI;
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.OVERVIEW;
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.POSTER;
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.RELEASED;
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.SCORE;
-import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.TITLE;
-import static cz.msebera.android.httpclient.extras.PRNGFixes.apply;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.BACKDROP;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.CONTENT_URI;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.OVERVIEW;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.POSTER;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.RELEASED;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.SCORE;
+import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.TITLE;
 
 public class MovieDetailActivity extends AppCompatActivity {
     TextView tv_name, tv_genre, tv_duration, tv_rating, tv_year, tv_desc;
@@ -157,7 +151,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                         @Override
                         public void onFavoriteChanged(MaterialFavoriteButton buttonView, boolean favorite) {
                             if (favorite == true) {
-                                SharedPreferences.Editor editor = getSharedPreferences("com.ilham.mymoviecatalogue.MovieFavDetailActivity", MODE_PRIVATE).edit();
+                                SharedPreferences.Editor editor = getSharedPreferences("com.ilham.mymoviecatalogue.MovieDetailActivity", MODE_PRIVATE).edit();
                                 editor.putBoolean("Favorite Added", true);
                                 editor.apply();
                                 Intent intent = new Intent();
@@ -181,23 +175,23 @@ public class MovieDetailActivity extends AppCompatActivity {
                                 Snackbar.make(buttonView, successLike,
                                         Snackbar.LENGTH_SHORT).show();
                             } else {
-                                SharedPreferences.Editor editor = getSharedPreferences("com.delaroystudios.movieapp.MovieFavDetailActivity", MODE_PRIVATE).edit();
+                                SharedPreferences.Editor editor = getSharedPreferences("com.ilham.mymoviecatalogue.MovieDetailActivity", MODE_PRIVATE).edit();
                                 editor.putBoolean("Favorite Removed", true);
                                 editor.apply();
-                                getContentResolver().delete(Uri.parse(CONTENT_URI + "/" + movie_id),null,null);
+                                getContentResolver().delete(Uri.parse(CONTENT_URI + "/" + movie_id), null, null);
                                 Snackbar.make(buttonView, "Removed from Favorite",
                                         Snackbar.LENGTH_SHORT).show();
                             }
                         }
                     }
             );
-        }else{
+        } else {
             materialFavoriteButton.setOnFavoriteChangeListener(
                     new MaterialFavoriteButton.OnFavoriteChangeListener() {
                         @Override
                         public void onFavoriteChanged(MaterialFavoriteButton buttonView, boolean favorite) {
                             if (favorite == true) {
-                                SharedPreferences.Editor editor = getSharedPreferences("com.ilham.mymoviecatalogue.MovieFavDetailActivity", MODE_PRIVATE).edit();
+                                SharedPreferences.Editor editor = getSharedPreferences("com.ilham.mymoviecatalogue.activity.MovieDetailActivity", MODE_PRIVATE).edit();
                                 editor.putBoolean("Favorite Added", true);
                                 editor.apply();
                                 Intent intent = new Intent();
@@ -221,10 +215,10 @@ public class MovieDetailActivity extends AppCompatActivity {
                                 Snackbar.make(buttonView, successLike,
                                         Snackbar.LENGTH_SHORT).show();
                             } else {
-                                SharedPreferences.Editor editor = getSharedPreferences("com.delaroystudios.movieapp.MovieFavDetailActivity", MODE_PRIVATE).edit();
+                                SharedPreferences.Editor editor = getSharedPreferences("com.ilham.mymoviecatalogue.activity.MovieDetailActivity", MODE_PRIVATE).edit();
                                 editor.putBoolean("Favorite Removed", true);
                                 editor.apply();
-                                getContentResolver().delete(Uri.parse(CONTENT_URI + "/" + movie_id),null,null);
+                                getContentResolver().delete(Uri.parse(CONTENT_URI + "/" + movie_id), null, null);
                                 Snackbar.make(buttonView, "Removed from Favorite",
                                         Snackbar.LENGTH_SHORT).show();
                             }
@@ -337,7 +331,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         }
     }
 
-    public void addFav(){
+    public void addFav() {
         Intent intent = new Intent();
         intent.putExtra(EXTRA_MOVIE, movie);
         intent.putExtra(EXTRA_POSITION, position);
@@ -358,7 +352,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         Toast.makeText(MovieDetailActivity.this, successLike, Toast.LENGTH_SHORT).show();
     }
 
-    public void delFav(){
+    public void delFav() {
         Intent intent = new Intent();
         intent.putExtra(EXTRA_POSITION, position);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -4,7 +4,7 @@ import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.ilham.mymoviecatalogue.database.DatabaseContract;
+import com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract;
 
 import java.util.List;
 

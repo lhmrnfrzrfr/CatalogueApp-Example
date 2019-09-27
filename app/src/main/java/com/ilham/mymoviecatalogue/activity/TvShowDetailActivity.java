@@ -1,9 +1,12 @@
 package com.ilham.mymoviecatalogue.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,7 +16,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.github.ivbaranov.mfb.MaterialFavoriteButton;
 import com.ilham.mymoviecatalogue.R;
+import com.ilham.mymoviecatalogue.database.tvfavorite.TvHelper;
 import com.ilham.mymoviecatalogue.items.Tv;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -38,6 +43,20 @@ public class TvShowDetailActivity extends AppCompatActivity {
     private static final String STATE_COVER = "state_cover";
     private static final String STATE_YEAR = "state_year";
 
+    public static final int REQUEST_ADD = 100;
+    public static final int RESULT_ADD = 101;
+    public static final int REQUEST_UPDATE = 200;
+    public static final int RESULT_DELETE = 301;
+
+    public static final String EXTRA_TV = "extra_tv";
+    public static final String EXTRA_POSITION = "extra_position";
+
+    private Tv.ResultsBean tv;
+    private ArrayList<Tv.ResultsBean> tvResults;
+    private int position;
+    Integer tv_id;
+
+    private TvHelper tvHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +64,11 @@ public class TvShowDetailActivity extends AppCompatActivity {
         setContentView(R.layout.movie_detail);
 
         progressBar = new ProgressDialog(this);
-        Tv.ResultsBean tv = getIntent().getParcelableExtra("EXTRA_TV");
+        final Tv.ResultsBean tv = getIntent().getParcelableExtra("EXTRA_TV");
 
         Integer tvId = getIntent().getExtras().getInt("tv_id");
         String numberAsString = Integer.toString(tvId);
+
         getDetail(numberAsString);
         if (savedInstanceState == null) {
             final Handler handler = new Handler();
@@ -71,6 +91,9 @@ public class TvShowDetailActivity extends AppCompatActivity {
         collapsingToolbarLayout.setExpandedTitleColor(
                 ContextCompat.getColor(this, R.color.transparent));
 
+        tvHelper = new TvHelper(this);
+        tvHelper.open();
+
         tv_name = findViewById(R.id.item_nama);
         tv_genre = findViewById(R.id.item_genre);
         tv_duration = findViewById(R.id.item_duration);
@@ -79,6 +102,7 @@ public class TvShowDetailActivity extends AppCompatActivity {
         tv_year = findViewById(R.id.item_year);
         img_photo = findViewById(R.id.item_photo);
         img_cover = findViewById(R.id.item_cover);
+        tv_id = tvId;
 
         Double rate = getIntent().getExtras().getDouble("tv_rate");
         String rating = new DecimalFormat("#.#").format(rate);
@@ -97,6 +121,78 @@ public class TvShowDetailActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
+        MaterialFavoriteButton materialFavoriteButton = (MaterialFavoriteButton) findViewById(R.id.favorite_button);
+        if (tvHelper.checkData(tv_id)) {
+            materialFavoriteButton.setFavorite(true);
+            materialFavoriteButton.setOnFavoriteChangeListener(
+                    new MaterialFavoriteButton.OnFavoriteChangeListener() {
+                        @Override
+                        public void onFavoriteChanged(MaterialFavoriteButton buttonView, boolean favorite) {
+                            if (favorite == true) {
+                                SharedPreferences.Editor editor = getSharedPreferences("com.ilham.mymoviecatalogue.activity.TvShowDetailActivity", MODE_PRIVATE).edit();
+                                editor.putBoolean("Favorite Added", true);
+                                editor.apply();
+                                Intent intent = new Intent();
+                                intent.putExtra(EXTRA_TV, tv);
+                                intent.putExtra(EXTRA_POSITION, position);
+
+                                long result = tvHelper.insertTv(tv);
+                                tv.setId((int) result);
+                                setResult(RESULT_ADD, intent);
+
+                                String successLike = getString(R.string.like);
+                                Snackbar.make(buttonView, successLike,
+                                        Snackbar.LENGTH_SHORT).show();
+                            } else {
+                                SharedPreferences.Editor editor = getSharedPreferences("com.ilham.mymoviecatalogue.activity.TvShowDetailActivity", MODE_PRIVATE).edit();
+                                editor.putBoolean("Favorite Removed", true);
+                                editor.apply();
+                                long result = tvHelper.deleteTv(tv.getId());
+                                if (result > 0) {
+                                    setResult(RESULT_DELETE);
+                                    Snackbar.make(buttonView, "Removed from Favorite",
+                                            Snackbar.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+                    }
+            );
+        } else {
+            materialFavoriteButton.setOnFavoriteChangeListener(
+                    new MaterialFavoriteButton.OnFavoriteChangeListener() {
+                        @Override
+                        public void onFavoriteChanged(MaterialFavoriteButton buttonView, boolean favorite) {
+                            if (favorite == true) {
+                                SharedPreferences.Editor editor = getSharedPreferences("com.ilham.mymoviecatalogue.activity.TvShowDetailActivity", MODE_PRIVATE).edit();
+                                editor.putBoolean("Favorite Added", true);
+                                editor.apply();
+                                Intent intent = new Intent();
+                                intent.putExtra(EXTRA_TV, tv);
+                                intent.putExtra(EXTRA_POSITION, position);
+
+                                long result = tvHelper.insertTv(tv);
+                                tv.setId((int) result);
+                                setResult(RESULT_ADD, intent);
+
+                                String successLike = getString(R.string.like);
+                                Snackbar.make(buttonView, successLike,
+                                        Snackbar.LENGTH_SHORT).show();
+                            } else {
+                                SharedPreferences.Editor editor = getSharedPreferences("com.ilham.mymoviecatalogue.activity.TvShowDetailActivity", MODE_PRIVATE).edit();
+                                editor.putBoolean("Favorite Removed", true);
+                                editor.apply();
+                                long result = tvHelper.deleteTv(tv.getId());
+                                if (result > 0) {
+                                    setResult(RESULT_DELETE);
+                                    Snackbar.make(buttonView, "Removed from Favorite",
+                                            Snackbar.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+                    }
+            );
         }
     }
 
@@ -199,5 +295,9 @@ public class TvShowDetailActivity extends AppCompatActivity {
         } else {
             progressBar.hide();
         }
+    }
+
+    public void delFav() {
+        tvHelper.deleteTv(tv.getId());
     }
 }
