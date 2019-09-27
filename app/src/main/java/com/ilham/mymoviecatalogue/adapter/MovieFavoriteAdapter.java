@@ -22,7 +22,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.ilham.mymoviecatalogue.CustomOnItemClickListener;
 import com.ilham.mymoviecatalogue.R;
-import com.ilham.mymoviecatalogue.activity.DetailMovieFavoriteActivity;
+import com.ilham.mymoviecatalogue.activity.MovieFavDetailActivity;
 import com.ilham.mymoviecatalogue.items.Movie;
 
 import java.util.ArrayList;
@@ -96,14 +96,14 @@ public class MovieFavoriteAdapter extends RecyclerView.Adapter<MovieFavoriteAdap
             @Override
             public void onItemClicked(View view, int position) {
                 // Define and Start Intent
-                Intent intent = new Intent(activity, DetailMovieFavoriteActivity.class);
+                Intent intent = new Intent(activity, MovieFavDetailActivity.class);
 
                 Uri uri = Uri.parse(CONTENT_URI + "/" + getListMovies().get(position).getId());
                 intent.setData(uri);
 
-                intent.putExtra(DetailMovieFavoriteActivity.EXTRA_POSITION, position);
-                intent.putExtra(DetailMovieFavoriteActivity.EXTRA_MOVIE, listMovies.get(position));
-                activity.startActivityForResult(intent, DetailMovieFavoriteActivity.REQUEST_UPDATE);
+                intent.putExtra(MovieFavDetailActivity.EXTRA_POSITION, position);
+                intent.putExtra(MovieFavDetailActivity.EXTRA_MOVIE, listMovies.get(position));
+                activity.startActivityForResult(intent, MovieFavDetailActivity.REQUEST_UPDATE);
 
                 // Intent Transition Animation
                 activity.overridePendingTransition(R.anim.slide_up, R.anim.no_animation);

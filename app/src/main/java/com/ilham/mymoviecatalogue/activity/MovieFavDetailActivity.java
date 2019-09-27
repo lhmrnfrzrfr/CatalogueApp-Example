@@ -35,7 +35,8 @@ import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.
 import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.SCORE;
 import static com.ilham.mymoviecatalogue.database.DatabaseContract.MovieColumns.TITLE;
 
-public class FavoriteMovieDetailActivity extends AppCompatActivity {
+public class MovieFavDetailActivity extends AppCompatActivity {
+
     // Default Keys Values
     public static final int REQUEST_UPDATE = 200;
     public static final int RESULT_DELETE = 301;
@@ -47,8 +48,10 @@ public class FavoriteMovieDetailActivity extends AppCompatActivity {
     public static final String EXTRA_MOVIE = "extra_movie";
     public static final String EXTRA_POSITION = "extra_position";
 
+    // Instance Movie Items
     private Movie.ResultsBean movie;
 
+    // Widget Variables Declaration
     TextView txtTitleDetail;
     TextView txtOverviewDetail;
     ImageView posterBanner;
@@ -60,21 +63,26 @@ public class FavoriteMovieDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.movie_favorite_detail);
+        setContentView(R.layout.movie_detail_favorite);
 
+        // Translucent Status Bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
+        // Casting Data Variables
         txtTitleDetail = findViewById(R.id.txt_title_detail_favorite);
         txtOverviewDetail = findViewById(R.id.txt_overviewDetail_favorite);
         posterBanner = findViewById(R.id.poster_banner_favorite);
         scoreDetailFavorite = findViewById(R.id.score_detail_movie_favorite);
 
+        // Casting Button Variables
         btnBack = findViewById(R.id.btn_back_favorite);
         btnDislike = findViewById(R.id.btn_dislike_movie_favorite);
 
+        // Progress Bar Declaration
         progressBar = findViewById(R.id.progressBar_detailMovie_favorite);
         progressBar.bringToFront();
 
+        // Menerima Intent Movie dan Positon
         movie = getIntent().getParcelableExtra(EXTRA_MOVIE);
         if (movie != null) {
             position = getIntent().getIntExtra(EXTRA_POSITION, 0);
@@ -92,13 +100,15 @@ public class FavoriteMovieDetailActivity extends AppCompatActivity {
             }
         }
 
+        // Mengisi data String
         txtTitleDetail.setText(movie.getTitle());
         txtOverviewDetail.setText(movie.getOverview());
         double score = movie.getVote_average() * 10;
         scoreDetailFavorite.setRating((float) ((score * 5) / 100));
 
+        // Mengisi data image
         String url = "https://image.tmdb.org/t/p/original" + movie.getBackdrop_path();
-        Glide.with(FavoriteMovieDetailActivity.this)
+        Glide.with(MovieFavDetailActivity.this)
                 .load(url)
                 .listener(new RequestListener<Drawable>() {
                     @Override
@@ -114,10 +124,20 @@ public class FavoriteMovieDetailActivity extends AppCompatActivity {
                 })
                 .into(posterBanner);
 
+        // setOnClickListener untuk Button Back
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                overridePendingTransition(R.anim.no_animation, R.anim.slide_down);
+            }
+        });
+
+        // setOnClickListener untuk Button Dislike
         btnDislike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FavoriteMovieDetailActivity.this, TabbedActivity.class);
+                Intent intent = new Intent(MovieFavDetailActivity.this, TabbedActivity.class);
                 intent.putExtra(EXTRA_POSITION, position);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -135,8 +155,8 @@ public class FavoriteMovieDetailActivity extends AppCompatActivity {
                 getContentResolver().delete(Objects.requireNonNull(getIntent().getData()), null, null);
 
                 finish();
-                String remove = getString(R.string.error);
-                Toast.makeText(FavoriteMovieDetailActivity.this, remove, Toast.LENGTH_SHORT).show();
+                String remove = getString(R.string.dislike);
+                Toast.makeText(MovieFavDetailActivity.this, remove, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -144,5 +164,12 @@ public class FavoriteMovieDetailActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    // Animation onBackPressed
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        MovieFavDetailActivity.this.overridePendingTransition(R.anim.no_animation, R.anim.slide_down);
     }
 }

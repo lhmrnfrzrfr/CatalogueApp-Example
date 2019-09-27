@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 import com.ilham.mymoviecatalogue.LoadMoviesCallback;
 import com.ilham.mymoviecatalogue.R;
-import com.ilham.mymoviecatalogue.activity.DetailMovieFavoriteActivity;
 import com.ilham.mymoviecatalogue.activity.MovieDetailActivity;
 import com.ilham.mymoviecatalogue.adapter.MovieFavoriteAdapter;
 import com.ilham.mymoviecatalogue.database.MappingHelper;
@@ -143,9 +142,9 @@ public class MovieFavoriteFragment extends Fragment implements LoadMoviesCallbac
                     adapter.addItem(movieItems);
                     rvFavoriteMovies.smoothScrollToPosition(adapter.getItemCount() - 1);
                 }
-            } else if (requestCode == DetailMovieFavoriteActivity.REQUEST_UPDATE) {
-                if (resultCode == DetailMovieFavoriteActivity.RESULT_DELETE) {
-                    int position = data.getIntExtra(DetailMovieFavoriteActivity.EXTRA_POSITION, 0);
+            } else if (requestCode == MovieDetailActivity.REQUEST_UPDATE) {
+                if (resultCode == MovieDetailActivity.RESULT_DELETE) {
+                    int position = data.getIntExtra(MovieDetailActivity.EXTRA_POSITION, 0);
                     adapter.removeItem(position);
                 }
             }

@@ -119,6 +119,18 @@ public class MovieHelper {
                 , _ID + " ASC");
     }
 
+    public boolean checkData(int id){
+        Cursor cursor;
+        cursor = database.rawQuery("select * from "+DATABASE_TABLE+" where "+_ID+" = "+id+"",null);
+        cursor.moveToFirst();
+        if(cursor.getCount() <= 0){
+            cursor.close();
+            return false;
+        }
+        cursor.close();
+        return true;
+    }
+
     public long insertProvider(ContentValues values) {
         return database.insert(DATABASE_TABLE, null, values);
     }

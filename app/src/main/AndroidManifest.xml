@@ -3,8 +3,8 @@
     package="com.ilham.mymoviecatalogue">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <permission android:name="moviecatalogue.READ_DATABASE" android:protectionLevel="normal"/>
-    <permission android:name="moviecatalogue.WRITE_DATABASE" android:protectionLevel="normal"/>
+    <permission android:name="com.ilham.mymoviecatalogue.READ_DATABASE" android:protectionLevel="normal"/>
+    <permission android:name="com.ilham.mymoviecatalogue.WRITE_DATABASE" android:protectionLevel="normal"/>
 
     <application
         android:allowBackup="true"
@@ -31,6 +31,15 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.MovieFavDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.ALTERNATIVE" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".activity.TvShowDetailActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -39,6 +48,12 @@
                 <category android:name="android.intent.category.ALTERNATIVE" />
             </intent-filter>
         </activity>
+        <provider
+            android:authorities="moviecatalogue"
+            android:name=".database.MovieProvider"
+            android:exported="true"
+            android:readPermission="com.ilham.mymoviecatalogue.READ_DATABASE"
+            android:writePermission="com.ilham.mymoviecatalogue.WRITE_DATABASE" />
     </application>
 
 </manifest>
