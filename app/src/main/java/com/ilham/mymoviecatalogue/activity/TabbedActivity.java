@@ -11,18 +11,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.ilham.mymoviecatalogue.R;
 import com.ilham.mymoviecatalogue.adapter.FragmentPagerAdapter;
 import com.ilham.mymoviecatalogue.fragment.FavoriteFragment;
 import com.ilham.mymoviecatalogue.fragment.MovieFragment;
 import com.ilham.mymoviecatalogue.fragment.TVFragment;
+import com.ilham.mymoviecatalogue.search.carimovie;
 
 public class TabbedActivity extends AppCompatActivity {
 
     private BottomNavigationView tabLayout;
     private ViewPager viewPager;
     private FragmentPagerAdapter adapter;
+
+    FloatingActionMenu fabmenu;
+    FloatingActionButton fabmovie, fabtv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +47,24 @@ public class TabbedActivity extends AppCompatActivity {
         // The first fragment to show when open the app
         if (savedInstanceState == null) {
             navigation.setSelectedItemId(R.id.nav_movie);
+
+            fabmenu = findViewById(R.id.fabmenu);
+            fabmovie = findViewById(R.id.fabmovie);
+            fabtv = findViewById(R.id.fabtv);
+            fabmovie.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent= new Intent(TabbedActivity.this, carimovie.class);
+                    startActivity(intent);
+                }
+            });
+            fabtv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent= new Intent(TabbedActivity.this, TVFragment.class);
+                    startActivity(intent);
+                }
+            });
         }
     }
 
@@ -67,6 +92,7 @@ public class TabbedActivity extends AppCompatActivity {
             return true;
         }
     };
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

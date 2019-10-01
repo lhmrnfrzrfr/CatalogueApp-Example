@@ -4,7 +4,10 @@ import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
 import com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -110,19 +113,46 @@ public class Movie {
          * release_date : 2019-07-12
          */
 
+        @SerializedName("vote_count")
         private int vote_count;
+
+        @SerializedName("id")
         private int id;
+
+        @SerializedName("video")
         private boolean video;
+
+        @SerializedName("vote_average")
         private double vote_average;
+
+        @SerializedName("title")
         private String title;
+
+        @SerializedName("popularity")
         private double popularity;
+
+        @SerializedName("poster_path")
         private String poster_path;
+
+        @SerializedName("original_language")
         private String original_language;
+
+        @SerializedName("original_title")
         private String original_title;
+
+        @SerializedName("backdrop_path")
         private String backdrop_path;
+
+        @SerializedName("adult")
         private boolean adult;
+
+        @SerializedName("overview")
         private String overview;
+
+        @SerializedName("release_date")
         private String release_date;
+
+        @SerializedName("genre_ids")
         private List<Integer> genre_ids;
 
         protected ResultsBean(Parcel in) {
@@ -309,6 +339,27 @@ public class Movie {
             this.overview = DatabaseContract.getColumnString(cursor, DatabaseContract.MovieColumns.OVERVIEW);
             this.backdrop_path = DatabaseContract.getColumnString(cursor, DatabaseContract.MovieColumns.BACKDROP);
             this.vote_average = DatabaseContract.getColumnDouble(cursor, DatabaseContract.MovieColumns.SCORE);
+        }
+
+        public ResultsBean(JSONObject object) {
+            try {
+                int id = object.getInt("id");
+                String title = object.getString("title");
+                String released = object.getString("release_date");
+                String overview = object.getString("overview");
+                String poster = object.getString("poster_path");
+                String backdrop = object.getString("backdrop_path");
+                double score = object.getDouble("vote_average");
+                this.id = id;
+                this.title = title;
+                this.release_date = released;
+                this.overview = overview;
+                this.poster_path = poster;
+                this.backdrop_path = backdrop;
+                this.vote_average = score;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

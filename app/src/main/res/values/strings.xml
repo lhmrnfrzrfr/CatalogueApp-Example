@@ -40,4 +40,8 @@
     <string name="a_reminder_to_return_to_the_app">A reminder to return to the app</string>
     <string name="release_reminder">Release Reminder</string>
     <string name="hasReleased">\u0020has been released today!</string>
+
+    <string name="search">Search</string>
+    <string name="reminder">Reminder</string>
+    <string name="carimovie">Search a movie</string>
 </resources>

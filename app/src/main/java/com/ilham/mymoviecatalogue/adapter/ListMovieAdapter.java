@@ -17,11 +17,29 @@ import com.ilham.mymoviecatalogue.activity.MovieDetailActivity;
 import com.ilham.mymoviecatalogue.items.Movie;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.CardViewViewHolder> {
 
     private Context context;
-    private ArrayList<Movie.ResultsBean> listMovie;
+    private ArrayList<Movie.ResultsBean> listMovie = new ArrayList<>();
+
+    public ListMovieAdapter(Context context) {
+    }
+
+    public ListMovieAdapter() {
+
+    }
+
+    public ListMovieAdapter(Context applicationContext, List<Movie.ResultsBean> movies) {
+    }
+
+    public void setFilmArrayList(List<Movie.ResultsBean> films) {
+        this.listMovie = listMovie;
+        listMovie.clear();
+        listMovie.addAll(films);
+        notifyDataSetChanged();
+    }
 
     public final boolean isAdded() {
         return true;

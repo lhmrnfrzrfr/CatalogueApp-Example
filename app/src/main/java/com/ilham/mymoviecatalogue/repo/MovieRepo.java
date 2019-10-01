@@ -2,14 +2,18 @@ package com.ilham.mymoviecatalogue.repo;
 
 import android.arch.lifecycle.MutableLiveData;
 
+import com.ilham.mymoviecatalogue.ApiClient;
 import com.ilham.mymoviecatalogue.ApiInterface;
 import com.ilham.mymoviecatalogue.items.Movie;
+import com.ilham.mymoviecatalogue.viewModel.MovieResult;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.ilham.mymoviecatalogue.ApiUrl.LANGUAGE_ENGLISH;
 
 public class MovieRepo {
     public static String BASE_URL = "https://api.themoviedb.org";
@@ -20,7 +24,6 @@ public class MovieRepo {
 
 
     public MovieRepo() {
-
     }
 
     public MutableLiveData<Movie> getMovies() {
