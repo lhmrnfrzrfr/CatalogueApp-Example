@@ -2,10 +2,8 @@ package com.ilham.mymoviecatalogue.repo;
 
 import android.arch.lifecycle.MutableLiveData;
 
-import com.ilham.mymoviecatalogue.ApiClient;
 import com.ilham.mymoviecatalogue.ApiInterface;
 import com.ilham.mymoviecatalogue.items.Movie;
-import com.ilham.mymoviecatalogue.viewModel.MovieResult;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,6 +19,7 @@ public class MovieRepo {
     public static int PAGE = 1;
     public static String API_KEY = "ce7feeb6af94d9372180d04db1bc755d";
     public static String LANGUAGE = "en-US";
+    public static final String query = "the";
 
 
     public MovieRepo() {
@@ -52,4 +51,5 @@ public class MovieRepo {
         });
         return refferAndInvitePojoMutableLiveData;
     }
+
 }

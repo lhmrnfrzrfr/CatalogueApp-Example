@@ -29,6 +29,7 @@ public class Movie {
     private int total_pages;
     private List<ResultsBean> results;
 
+
     public int getPage() {
         return page;
     }
@@ -154,6 +155,8 @@ public class Movie {
 
         @SerializedName("genre_ids")
         private List<Integer> genre_ids;
+
+        private String type;
 
         protected ResultsBean(Parcel in) {
             vote_count = in.readInt();
@@ -286,6 +289,9 @@ public class Movie {
         public void setRelease_date(String release_date) {
             this.release_date = release_date;
         }
+        private void setType(String type) {
+            this.type = type;
+        }
 
         public List<Integer> getGenre_ids() {
             return genre_ids;
@@ -319,6 +325,24 @@ public class Movie {
 
         public ResultsBean() {
 
+        }
+
+        public ResultsBean(JSONObject result, String type) {
+            try {
+                if (type.equals("movie")) {
+                    setTitle(result.getString("title"));
+                    setRelease_date(result.getString("release_date"));
+                } else {
+                    setTitle(result.getString("name"));
+                    setRelease_date(result.getString("first_air_date"));
+                }
+                setOverview(result.getString("overview"));
+                setVote_average(Double.parseDouble(result.getString("vote_average")));
+                setPoster_path(result.getString("poster_path"));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            setType(type);
         }
 
         public ResultsBean(int id, String title, String released, String poster, String overview, String backdrop, double score) {

@@ -20,7 +20,7 @@ import com.ilham.mymoviecatalogue.adapter.FragmentPagerAdapter;
 import com.ilham.mymoviecatalogue.fragment.FavoriteFragment;
 import com.ilham.mymoviecatalogue.fragment.MovieFragment;
 import com.ilham.mymoviecatalogue.fragment.TVFragment;
-import com.ilham.mymoviecatalogue.search.carimovie;
+import com.ilham.mymoviecatalogue.reminder.ReminderActivity;
 
 public class TabbedActivity extends AppCompatActivity {
 
@@ -54,7 +54,7 @@ public class TabbedActivity extends AppCompatActivity {
             fabmovie.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent= new Intent(TabbedActivity.this, carimovie.class);
+                    Intent intent= new Intent(TabbedActivity.this, MovieFragment.class);
                     startActivity(intent);
                 }
             });
@@ -105,6 +105,9 @@ public class TabbedActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_change_settings) {
             Intent mIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+            startActivity(mIntent);
+        } else if (item.getItemId() == R.id.reminder){
+            Intent mIntent = new Intent(TabbedActivity.this, ReminderActivity.class);
             startActivity(mIntent);
         }
         return super.onOptionsItemSelected(item);

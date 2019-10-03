@@ -1,5 +1,6 @@
 package com.ilham.mymoviecatalogue.viewModel;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.database.Cursor;
@@ -21,10 +22,11 @@ import cz.msebera.android.httpclient.Header;
 public class MovieListViewModel extends ViewModel {
 
     private static final String API_KEY = "ce7feeb6af94d9372180d04db1bc755d";
-    private MutableLiveData<ArrayList<Movie.ResultsBean>> listMovies = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<Movie.ResultsBean>> listMovies = new MutableLiveData<>();
     private MutableLiveData<Movie> movieData;
     private MovieRepo movieModel;
     private String lang;
+    private String query;
 
     public MovieListViewModel() {
         movieModel = new MovieRepo();
@@ -42,18 +44,11 @@ public class MovieListViewModel extends ViewModel {
         return this.movieData;
     }
 
-    public void setMovie() {
+
+    public void searchMovies(final String text, final String type, String language) {
         AsyncHttpClient client = new AsyncHttpClient();
         final ArrayList<Movie.ResultsBean> listItems = new ArrayList<>();
-
-        String locale = Locale.getDefault().getDisplayLanguage();
-        if (locale.contains("English")) {
-            lang = "en-US";
-        } else if (locale.contains("Indonesia")) {
-            lang = "id";
-        }
-
-        String url = "https://api.themoviedb.org/3/discover/movie?api_key=" + API_KEY + "&language=" + lang;
+        final String url = "https://api.themoviedb.org/3/search/" + type + "?api_key=" + API_KEY + "&language=" + language + "en-US&query=" + text;
         client.get(url, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -62,9 +57,9 @@ public class MovieListViewModel extends ViewModel {
                     JSONObject responseObject = new JSONObject(result);
                     JSONArray list = responseObject.getJSONArray("results");
                     for (int i = 0; i < list.length(); i++) {
-                        JSONObject movie = list.getJSONObject(i);
-                        Movie.ResultsBean movieItems = new Movie.ResultsBean(movie);
-                        listItems.add(movieItems);
+                        JSONObject movies = list.getJSONObject(i);
+                        Movie.ResultsBean movie = new Movie.ResultsBean(movies, type);
+                        listItems.add(movie);
                     }
                     listMovies.postValue(listItems);
                 } catch (Exception e) {
@@ -75,46 +70,9 @@ public class MovieListViewModel extends ViewModel {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Log.d("onFailure", error.getMessage());
+
             }
         });
     }
 
-    public void searchMovie(final String movies) {
-        AsyncHttpClient client = new AsyncHttpClient();
-        final ArrayList<Movie.ResultsBean> listItems = new ArrayList<>();
-
-        String locale = Locale.getDefault().getDisplayLanguage();
-        if (locale.contains("English")) {
-            lang = "en-US";
-        } else if (locale.contains("Indonesia")) {
-            lang = "id";
-        }
-
-        String url = "https://api.themoviedb.org/3/search/movie?api_key=" + API_KEY
-                + "&language=" + lang
-                + "&query=" + movies;
-        client.get(url, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                try {
-                    String result = new String(responseBody);
-                    JSONObject responseObject = new JSONObject(result);
-                    JSONArray list = responseObject.getJSONArray("results");
-                    for (int i = 0; i < list.length(); i++) {
-                        JSONObject movie = list.getJSONObject(i);
-                        Movie.ResultsBean movieItems = new Movie.ResultsBean(movie);
-                        listItems.add(movieItems);
-                    }
-                    listMovies.postValue(listItems);
-                } catch (Exception e) {
-                    Log.d("Exception", e.getMessage());
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Log.d("onFailure", error.getMessage());
-            }
-        });
-    }
 }

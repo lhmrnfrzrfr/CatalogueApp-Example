@@ -24,16 +24,6 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.Card
     private Context context;
     private ArrayList<Movie.ResultsBean> listMovie = new ArrayList<>();
 
-    public ListMovieAdapter(Context context) {
-    }
-
-    public ListMovieAdapter() {
-
-    }
-
-    public ListMovieAdapter(Context applicationContext, List<Movie.ResultsBean> movies) {
-    }
-
     public void setFilmArrayList(List<Movie.ResultsBean> films) {
         this.listMovie = listMovie;
         listMovie.clear();
@@ -43,6 +33,12 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.Card
 
     public final boolean isAdded() {
         return true;
+    }
+
+    public void setData(ArrayList<Movie.ResultsBean> items) {
+        listMovie.clear();
+        listMovie.addAll(items);
+        notifyDataSetChanged();
     }
 
     public ListMovieAdapter(Context context, ArrayList<Movie.ResultsBean> listMovie) {
