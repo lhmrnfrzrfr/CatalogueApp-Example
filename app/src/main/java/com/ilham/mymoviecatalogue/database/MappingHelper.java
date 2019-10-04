@@ -16,9 +16,9 @@ import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract
 
 public class MappingHelper {
 
-    public static ArrayList<Movie.ResultsBean> mapCursorToArrayList(Cursor moviesCursor) {
+    public static ArrayList<Movie> mapCursorToArrayList(Cursor moviesCursor) {
 
-        ArrayList<Movie.ResultsBean> moviesList = new ArrayList<>();
+        ArrayList<Movie> moviesList = new ArrayList<>();
 
         if (moviesCursor != null) {
             while (moviesCursor.moveToNext()) {
@@ -29,7 +29,7 @@ public class MappingHelper {
                 String poster = moviesCursor.getString(moviesCursor.getColumnIndexOrThrow(POSTER));
                 String backdrop = moviesCursor.getString(moviesCursor.getColumnIndexOrThrow(BACKDROP));
                 double score = moviesCursor.getDouble(moviesCursor.getColumnIndexOrThrow(SCORE));
-                moviesList.add(new Movie.ResultsBean(id, title, released, poster, overview, backdrop, score));
+                moviesList.add(new Movie(id, title, released, poster, overview, backdrop, score));
             }
         }
 

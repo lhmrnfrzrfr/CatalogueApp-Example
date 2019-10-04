@@ -45,7 +45,7 @@ public class TvShowFavDetailActivity extends AppCompatActivity {
     ListTvAdapter adapter;
 
     // Instance TV Items
-    private Tv.ResultsBean tv;
+    private Tv tv;
 
     // Widget Variables Declaration
     TextView txtTitleDetail;
@@ -66,7 +66,7 @@ public class TvShowFavDetailActivity extends AppCompatActivity {
         tvHelper.open();
 
         // Adapter Instance
-        adapter = new ListTvAdapter();
+        //adapter = new ListTvAdapter();
         adapter.notifyDataSetChanged();
 
         // Translucent Status Bar

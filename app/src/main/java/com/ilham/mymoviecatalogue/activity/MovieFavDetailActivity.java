@@ -49,7 +49,7 @@ public class MovieFavDetailActivity extends AppCompatActivity {
     public static final String EXTRA_POSITION = "extra_position";
 
     // Instance Movie Items
-    private Movie.ResultsBean movie;
+    private Movie movie;
 
     // Widget Variables Declaration
     TextView txtTitleDetail;
@@ -87,7 +87,7 @@ public class MovieFavDetailActivity extends AppCompatActivity {
         if (movie != null) {
             position = getIntent().getIntExtra(EXTRA_POSITION, 0);
         } else {
-            movie = new Movie.ResultsBean();
+            movie = new Movie();
         }
 
         Uri uri = getIntent().getData();
@@ -95,7 +95,7 @@ public class MovieFavDetailActivity extends AppCompatActivity {
         if (uri != null) {
             Cursor cursor = getContentResolver().query(uri, null, null, null, null);
             if (cursor != null) {
-                if (cursor.moveToFirst()) movie = new Movie.ResultsBean(cursor);
+                if (cursor.moveToFirst()) movie = new Movie(cursor);
                 cursor.close();
             }
         }

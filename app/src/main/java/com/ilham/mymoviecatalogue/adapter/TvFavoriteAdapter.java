@@ -28,7 +28,7 @@ import java.util.ArrayList;
 
 public class TvFavoriteAdapter extends RecyclerView.Adapter<TvFavoriteAdapter.TvFavoriteViewHolder> {
 
-    private ArrayList<Tv.ResultsBean> listTvs = new ArrayList<>();
+    private ArrayList<Tv> listTvs = new ArrayList<>();
 
     private Activity activity;
 
@@ -36,11 +36,11 @@ public class TvFavoriteAdapter extends RecyclerView.Adapter<TvFavoriteAdapter.Tv
         this.activity = activity;
     }
 
-    public ArrayList<Tv.ResultsBean> getListTvs() {
+    public ArrayList<Tv> getListTvs() {
         return listTvs;
     }
 
-    public void setListTv(ArrayList<Tv.ResultsBean> listTvs) {
+    public void setListTv(ArrayList<Tv> listTvs) {
         if (listTvs.size() > 0) {
             this.listTvs.clear();
         }
@@ -48,7 +48,7 @@ public class TvFavoriteAdapter extends RecyclerView.Adapter<TvFavoriteAdapter.Tv
         notifyDataSetChanged();
     }
 
-    public void addItem(Tv.ResultsBean tvItems) {
+    public void addItem(Tv tvItems) {
         this.listTvs.add(tvItems);
         notifyItemInserted(listTvs.size() - 1);
     }

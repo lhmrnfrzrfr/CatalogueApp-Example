@@ -53,8 +53,8 @@ public class MovieHelper {
             database.close();
     }
 
-    public ArrayList<Movie.ResultsBean> query() {
-        ArrayList<Movie.ResultsBean> arrayList = new ArrayList<>();
+    public ArrayList<Movie> query() {
+        ArrayList<Movie> arrayList = new ArrayList<>();
         Cursor cursor = database.query(DATABASE_TABLE,
                 null,
                 null,
@@ -64,10 +64,10 @@ public class MovieHelper {
                 _ID + " DESC",
                 null);
         cursor.moveToFirst();
-        Movie.ResultsBean movieItems;
+        Movie movieItems;
         if (cursor.getCount() > 0) {
             do {
-                movieItems = new Movie.ResultsBean();
+                movieItems = new Movie();
                 movieItems.setId(cursor.getInt(cursor.getColumnIndexOrThrow(_ID)));
                 movieItems.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(TITLE)));
                 movieItems.setPoster_path(cursor.getString(cursor.getColumnIndexOrThrow(POSTER)));
@@ -84,7 +84,7 @@ public class MovieHelper {
         return arrayList;
     }
 
-    public long insert(Movie.ResultsBean movieItems) {
+    public long insert(Movie movieItems) {
         ContentValues initialValues = new ContentValues();
         initialValues.put(TITLE, movieItems.getTitle());
         initialValues.put(POSTER, movieItems.getPoster_path());

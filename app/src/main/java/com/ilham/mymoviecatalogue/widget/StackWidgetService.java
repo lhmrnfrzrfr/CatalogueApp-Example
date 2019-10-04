@@ -34,7 +34,7 @@ public class StackWidgetService extends RemoteViewsService {
 
 class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
-    private final ArrayList<Movie.ResultsBean> mWidgetItems = new ArrayList<>();
+    private final ArrayList<Movie> mWidgetItems = new ArrayList<>();
     private final Context mContext;
     private Cursor cursor;
 
@@ -51,7 +51,7 @@ class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
             String title = cursor.getString(cursor.getColumnIndexOrThrow(TITLE));
             String overview = cursor.getString(cursor.getColumnIndexOrThrow(OVERVIEW));
             String poster = cursor.getString(cursor.getColumnIndexOrThrow(POSTER));
-            mWidgetItems.add(new Movie.ResultsBean(id, title, overview, poster));
+            mWidgetItems.add(new Movie(id, title, overview, poster));
             Log.d("cek", title);
         }
     }

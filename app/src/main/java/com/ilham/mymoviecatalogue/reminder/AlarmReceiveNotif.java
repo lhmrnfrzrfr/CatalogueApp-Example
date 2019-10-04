@@ -42,7 +42,7 @@ public class AlarmReceiveNotif extends BroadcastReceiver {
     private static final String EXTRA_TYPE = "type";
     private static final String EXTRA_MESSAGE = "message";
 
-    private ArrayList<Movie.ResultsBean> listMovies = new ArrayList<>();
+    private ArrayList<Movie> listMovies = new ArrayList<>();
 
     private int notifId;
 
@@ -65,7 +65,7 @@ public class AlarmReceiveNotif extends BroadcastReceiver {
             notifId = ID_RELEASE_REMINDER;
             checkNewReleaseMovies(new ReleaseMovieCallbacks() {
                 @Override
-                public void onSuccess(ArrayList<Movie.ResultsBean> movies) {
+                public void onSuccess(ArrayList<Movie> movies) {
                     listMovies = movies;
                     for(int i = 0; i < listMovies.size(); i++) {
                         showAlarmNotification(context,listMovies.get(i).getTitle(), listMovies.get(i).getTitle()+"today release!",notifId++);
@@ -91,7 +91,7 @@ public class AlarmReceiveNotif extends BroadcastReceiver {
         String todaydate = simpleDateFormat.format(date);
 
         AsyncHttpClient client = new AsyncHttpClient();
-        final ArrayList<Movie.ResultsBean> listItems = new ArrayList<>();
+        final ArrayList<Movie> listItems = new ArrayList<>();
         final String url = "https://api.themoviedb.org/3/discover/movie?api_key=" + API_KEY + "&primary_release_date.gte="+todaydate+"&primary_release_date.lte="+todaydate;
         client.get(url, new AsyncHttpResponseHandler() {
             @Override
@@ -102,7 +102,7 @@ public class AlarmReceiveNotif extends BroadcastReceiver {
                     JSONArray list = responseObject.getJSONArray("results");
                     for (int i = 0; i < list.length(); i++){
                         JSONObject movies = list.getJSONObject(i);
-                        Movie.ResultsBean movie = new Movie.ResultsBean(movies, "movie");
+                        Movie movie = new Movie(movies, "movie");
                         listItems.add(movie);
                     }
                     callbacks.onSuccess(listItems);
@@ -116,7 +116,7 @@ public class AlarmReceiveNotif extends BroadcastReceiver {
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Log.d("onFailure", error.getMessage());
                 callbacks.onFailure(true);
-                callbacks.onSuccess(new ArrayList<Movie.ResultsBean>());
+                callbacks.onSuccess(new ArrayList<Movie>());
 
             }
         });

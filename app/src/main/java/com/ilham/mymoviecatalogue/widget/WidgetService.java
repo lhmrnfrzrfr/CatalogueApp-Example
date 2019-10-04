@@ -34,7 +34,7 @@ public class WidgetService extends RemoteViewsService {
 
 class WidgetViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
-    private final ArrayList<Movie.ResultsBean> mWidgetItems = new ArrayList<>();
+    private final ArrayList<Movie> mWidgetItems = new ArrayList<>();
     private final Context mContext;
     private Cursor cursor;
 
@@ -53,7 +53,7 @@ class WidgetViewsFactory implements RemoteViewsService.RemoteViewsFactory {
             double score = Double.parseDouble(cursor.getString(cursor.getColumnIndexOrThrow(SCORE)));
             String poster = cursor.getString(cursor.getColumnIndexOrThrow(POSTER));
             String type = cursor.getString(cursor.getColumnIndexOrThrow(CATEGORY));
-            mWidgetItems.add(new Movie.ResultsBean(id, title, overview, poster));
+            mWidgetItems.add(new Movie(id, title, overview, poster));
             Log.d("Check", title);
         }
     }

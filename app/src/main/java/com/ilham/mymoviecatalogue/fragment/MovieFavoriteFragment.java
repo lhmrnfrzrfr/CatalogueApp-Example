@@ -63,7 +63,7 @@ public class MovieFavoriteFragment extends Fragment implements LoadMoviesCallbac
         if (savedInstanceState == null) {
             new LoadMoviesAsync(Objects.requireNonNull(getActivity()).getApplicationContext(), this).execute();
         } else {
-            ArrayList<Movie.ResultsBean> list = savedInstanceState.getParcelableArrayList(EXTRA_STATE);
+            ArrayList<Movie> list = savedInstanceState.getParcelableArrayList(EXTRA_STATE);
             if (list != null) {
                 adapter.setListMovie(list);
             }
@@ -93,11 +93,11 @@ public class MovieFavoriteFragment extends Fragment implements LoadMoviesCallbac
 
     @Override
     public void postExecute(Cursor movies) {
-        ArrayList<Movie.ResultsBean> listMovies = MappingHelper.mapCursorToArrayList(movies);
+        ArrayList<Movie> listMovies = MappingHelper.mapCursorToArrayList(movies);
         if (listMovies.size() > 0) {
             adapter.setListMovie(listMovies);
         } else {
-            adapter.setListMovie(new ArrayList<Movie.ResultsBean>());
+            adapter.setListMovie(new ArrayList<Movie>());
             Toast.makeText(getActivity(), "Tidak ada data saat ini", Toast.LENGTH_SHORT).show();
         }
     }
@@ -138,7 +138,7 @@ public class MovieFavoriteFragment extends Fragment implements LoadMoviesCallbac
         if (data != null) {
             if (requestCode == MovieDetailActivity.REQUEST_ADD) {
                 if (resultCode == MovieDetailActivity.RESULT_ADD) {
-                    Movie.ResultsBean movieItems = data.getParcelableExtra(MovieDetailActivity.EXTRA_MOVIE);
+                    Movie movieItems = data.getParcelableExtra(MovieDetailActivity.EXTRA_MOVIE);
                     adapter.addItem(movieItems);
                     rvFavoriteMovies.smoothScrollToPosition(adapter.getItemCount() - 1);
                 }

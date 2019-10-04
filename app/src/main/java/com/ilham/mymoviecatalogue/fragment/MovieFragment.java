@@ -28,7 +28,7 @@ public class MovieFragment extends Fragment implements  SearchView.OnQueryTextLi
     private MovieListViewModel mViewModel;
     private RecyclerView myrecyclerview;
     private ListMovieAdapter listMovieAdapter;
-    private ArrayList<Movie.ResultsBean> listMovie = new ArrayList<>();
+    private ArrayList<Movie> listMovie = new ArrayList<>();
     private ProgressDialog progressBar;
     private final String type = "movie";
 
@@ -41,6 +41,7 @@ public class MovieFragment extends Fragment implements  SearchView.OnQueryTextLi
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_movie, viewGroup, false);
 
+        //SearchView searchView = v.findViewById(R.id.sv_movies);
         android.widget.SearchView searchView = v.findViewById(R.id.sv_movies);
         searchView.setOnQueryTextListener(this);
         myrecyclerview = v.findViewById(R.id.rv_fragmovie);
@@ -58,15 +59,9 @@ public class MovieFragment extends Fragment implements  SearchView.OnQueryTextLi
         super.onActivityCreated(savedInstanceState);
 
         mViewModel = ViewModelProviders.of(this).get(MovieListViewModel.class);
-        mViewModel.init();
-        mViewModel.getMovies().observe(this, new Observer<Movie>() {
-            @Override
-            public void onChanged(@Nullable Movie movie) {
-                listMovie.addAll(movie.getResults());
-                listMovieAdapter.notifyDataSetChanged();
-                showDialogLoad(false);
-            }
-        });
+        //mViewModel.init();
+        mViewModel.setMovies(getCurrentLanguage(),"popular");
+        mViewModel.getMovies().observe(this, getMovies);
     }
 
 
@@ -95,13 +90,7 @@ public class MovieFragment extends Fragment implements  SearchView.OnQueryTextLi
     @Override
     public boolean onQueryTextChange(String newText) {
         mViewModel.searchMovies(newText,type,getCurrentLanguage());
-        mViewModel.getMovies().observe(this, new Observer<Movie>() {
-            @Override
-            public void onChanged(@Nullable Movie movie) {
-                listMovie.addAll(movie.getResults());
-                listMovieAdapter.notifyDataSetChanged();
-            }
-        });
+        mViewModel.getMovies().observe(this, getMovies);
         return false;
     }
 
@@ -118,11 +107,12 @@ public class MovieFragment extends Fragment implements  SearchView.OnQueryTextLi
         return current.getLanguage();
     }
 
-    private final Observer<ArrayList<Movie.ResultsBean>> getMovies = new Observer<ArrayList<Movie.ResultsBean>>() {
+    private final Observer<ArrayList<Movie>> getMovies = new Observer<ArrayList<Movie>>() {
         @Override
-        public void onChanged(ArrayList<Movie.ResultsBean> movies) {
+        public void onChanged(ArrayList<Movie> movies) {
             if (movies != null) {
                 listMovieAdapter.setData(movies);
+                showDialogLoad(false);
             }
         }
     };

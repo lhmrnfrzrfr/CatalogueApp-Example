@@ -7,5 +7,5 @@ import java.util.ArrayList;
 public interface LoadTvsCallback {
     void preExecute();
 
-    void postExecute(ArrayList<Tv.ResultsBean> tvs);
+    void postExecute(ArrayList<Tv> tvs);
 }

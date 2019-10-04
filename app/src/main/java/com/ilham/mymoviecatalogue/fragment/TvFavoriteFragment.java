@@ -30,7 +30,7 @@ public class TvFavoriteFragment extends Fragment implements LoadTvsCallback {
 
     // Widgets, Array, Adapter, Helper Variable Declaration
     RecyclerView rvFavoriteTvs;
-    ArrayList<Tv.ResultsBean> tvItems;
+    ArrayList<Tv> tvItems;
     TvFavoriteAdapter adapter;
     TvHelper tvHelper;
 
@@ -78,7 +78,7 @@ public class TvFavoriteFragment extends Fragment implements LoadTvsCallback {
         if (savedInstanceState == null) {
             new LoadTvsAsync(tvHelper, this).execute();
         } else {
-            ArrayList<Tv.ResultsBean> list = savedInstanceState.getParcelableArrayList(EXTRA_STATE);
+            ArrayList<Tv> list = savedInstanceState.getParcelableArrayList(EXTRA_STATE);
             if (list != null) {
                 adapter.setListTv(list);
             }
@@ -109,11 +109,11 @@ public class TvFavoriteFragment extends Fragment implements LoadTvsCallback {
     }
 
     @Override
-    public void postExecute(ArrayList<Tv.ResultsBean> tvs) {
+    public void postExecute(ArrayList<Tv> tvs) {
         adapter.setListTv(tvs);
     }
 
-    private static class LoadTvsAsync extends AsyncTask<Void, Void, ArrayList<Tv.ResultsBean>> {
+    private static class LoadTvsAsync extends AsyncTask<Void, Void, ArrayList<Tv>> {
 
         private final WeakReference<TvHelper> weakNoteHelper;
         private final WeakReference<LoadTvsCallback> weakCallback;
@@ -130,12 +130,12 @@ public class TvFavoriteFragment extends Fragment implements LoadTvsCallback {
         }
 
         @Override
-        protected ArrayList<Tv.ResultsBean> doInBackground(Void... voids) {
+        protected ArrayList<Tv> doInBackground(Void... voids) {
             return weakNoteHelper.get().getAllTvs();
         }
 
         @Override
-        protected void onPostExecute(ArrayList<Tv.ResultsBean> tvs) {
+        protected void onPostExecute(ArrayList<Tv> tvs) {
             super.onPostExecute(tvs);
             weakCallback.get().postExecute(tvs);
         }
@@ -148,7 +148,7 @@ public class TvFavoriteFragment extends Fragment implements LoadTvsCallback {
         if (data != null) {
             if (requestCode == TvShowDetailActivity.REQUEST_ADD) {
                 if (resultCode == TvShowDetailActivity.RESULT_ADD) {
-                    Tv.ResultsBean tvItems = data.getParcelableExtra(TvShowDetailActivity.EXTRA_TV);
+                    Tv tvItems = data.getParcelableExtra(TvShowDetailActivity.EXTRA_TV);
                     adapter.addItem(tvItems);
                     rvFavoriteTvs.smoothScrollToPosition(adapter.getItemCount() - 1);
                 }

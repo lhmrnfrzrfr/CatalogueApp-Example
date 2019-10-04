@@ -21,27 +21,24 @@ import java.util.ArrayList;
 public class ListTvAdapter extends RecyclerView.Adapter<ListTvAdapter.CardViewViewHolder> {
 
     private Context context;
-    private ArrayList<Tv.ResultsBean> listTv;
+    private ArrayList<Tv> listTv;
 
-    public ListTvAdapter() {
-
-    }
 
     public final boolean isAdded() {
         return true;
     }
 
-    public ListTvAdapter(Context context, ArrayList<Tv.ResultsBean> listTv) {
+    public ListTvAdapter(Context context, ArrayList<Tv> listTv) {
         this.listTv = listTv;
         this.context = context;
     }
 
 
-    public ArrayList<Tv.ResultsBean> getListTv() {
+    public ArrayList<Tv> getListTv() {
         return listTv;
     }
 
-    public void setListTv(ArrayList<Tv.ResultsBean> tvList) {
+    public void setListTv(ArrayList<Tv> tvList) {
         this.listTv = tvList;
         notifyDataSetChanged();
     }
@@ -70,7 +67,7 @@ public class ListTvAdapter extends RecyclerView.Adapter<ListTvAdapter.CardViewVi
     public void onBindViewHolder(@NonNull CardViewViewHolder holder, int i) {
 
         if (isAdded()) {
-            Tv.ResultsBean tv = getListTv().get(i);
+            Tv tv = getListTv().get(i);
             holder.tvName.setText(tv.getName());
             holder.tvRemarks.setText(tv.getOverview());
 

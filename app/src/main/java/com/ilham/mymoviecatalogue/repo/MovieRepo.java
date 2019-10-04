@@ -11,8 +11,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.ilham.mymoviecatalogue.ApiUrl.LANGUAGE_ENGLISH;
-
 public class MovieRepo {
     public static String BASE_URL = "https://api.themoviedb.org";
     public static String CATEGORY = "upcoming";

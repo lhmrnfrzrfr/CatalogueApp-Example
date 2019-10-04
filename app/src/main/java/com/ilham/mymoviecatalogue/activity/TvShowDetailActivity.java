@@ -51,8 +51,8 @@ public class TvShowDetailActivity extends AppCompatActivity {
     public static final String EXTRA_TV = "extra_tv";
     public static final String EXTRA_POSITION = "extra_position";
 
-    private Tv.ResultsBean tv;
-    private ArrayList<Tv.ResultsBean> tvResults;
+    private Tv tv;
+    private ArrayList<Tv> tvResults;
     private int position;
     Integer tv_id;
 
@@ -64,7 +64,7 @@ public class TvShowDetailActivity extends AppCompatActivity {
         setContentView(R.layout.movie_detail);
 
         progressBar = new ProgressDialog(this);
-        final Tv.ResultsBean tv = getIntent().getParcelableExtra("EXTRA_TV");
+        final Tv tv = getIntent().getParcelableExtra("EXTRA_TV");
 
         Integer tvId = getIntent().getExtras().getInt("tv_id");
         String numberAsString = Integer.toString(tvId);
@@ -247,7 +247,7 @@ public class TvShowDetailActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Tv.ResultsBean tv = getIntent().getParcelableExtra("EXTRA_TV");
+        Tv tv = getIntent().getParcelableExtra("EXTRA_TV");
         outState.putString(STATE_TITLE, tv.getName());
         outState.putString(STATE_DESC, tv.getOverview());
         outState.putString(STATE_PHOTO, tv.getPoster_path());

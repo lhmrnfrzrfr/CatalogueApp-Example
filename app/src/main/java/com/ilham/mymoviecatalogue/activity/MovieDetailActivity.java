@@ -64,8 +64,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     public static final String EXTRA_MOVIE = "extra_movie";
     public static final String EXTRA_POSITION = "extra_position";
 
-    private Movie.ResultsBean movie;
-    private ArrayList<Movie.ResultsBean> movieResults;
+    private Movie movie;
+    private ArrayList<Movie> movieResults;
     private int position;
     Integer movie_id;
 
@@ -79,7 +79,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         progressBar = new ProgressDialog(this);
         //mendapatkan id film
         Integer movieId = getIntent().getExtras().getInt("movie_id");
-        final Movie.ResultsBean movie = getIntent().getParcelableExtra("EXTRA_MOVIE");
+        final Movie movie = getIntent().getParcelableExtra("EXTRA_MOVIE");
         String numberAsString = Integer.toString(movieId);
         //jika state (masih) kosong maka...
         if (savedInstanceState == null) {
@@ -281,7 +281,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Movie.ResultsBean movie = getIntent().getParcelableExtra("EXTRA_MOVIE");
+        Movie movie = getIntent().getParcelableExtra("EXTRA_MOVIE");
         outState.putString(STATE_TITLE, movie.getTitle());
         outState.putString(STATE_DESC, movie.getOverview());
         outState.putString(STATE_PHOTO, movie.getPoster_path());

@@ -52,8 +52,8 @@ public class TvHelper {
             database.close();
     }
 
-    public ArrayList<Tv.ResultsBean> getAllTvs() {
-        ArrayList<Tv.ResultsBean> arrayList = new ArrayList<>();
+    public ArrayList<Tv> getAllTvs() {
+        ArrayList<Tv> arrayList = new ArrayList<>();
         Cursor cursor = database.query(DATABASE_TABLE, null,
                 null,
                 null,
@@ -62,10 +62,10 @@ public class TvHelper {
                 _ID + " ASC",
                 null);
         cursor.moveToFirst();
-        Tv.ResultsBean tvItems;
+        Tv tvItems;
         if (cursor.getCount() > 0) {
             do {
-                tvItems = new Tv.ResultsBean();
+                tvItems = new Tv();
                 tvItems.setId(cursor.getInt(cursor.getColumnIndexOrThrow(_ID)));
                 tvItems.setName(cursor.getString(cursor.getColumnIndexOrThrow(TITLE_TV)));
                 tvItems.setPoster_path(cursor.getString(cursor.getColumnIndexOrThrow(POSTER_TV)));
@@ -82,7 +82,7 @@ public class TvHelper {
         return arrayList;
     }
 
-    public long insertTv(Tv.ResultsBean tvItems) {
+    public long insertTv(Tv tvItems) {
         ContentValues args = new ContentValues();
         args.put(_ID, tvItems.getId());
         args.put(TITLE_TV, tvItems.getName());

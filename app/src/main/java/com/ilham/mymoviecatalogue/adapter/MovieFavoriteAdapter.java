@@ -31,18 +31,18 @@ import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract
 
 public class MovieFavoriteAdapter extends RecyclerView.Adapter<MovieFavoriteAdapter.MovieFavoriteViewHolder> {
 
-    private ArrayList<Movie.ResultsBean> listMovies = new ArrayList<>();
+    private ArrayList<Movie> listMovies = new ArrayList<>();
     private Activity activity;
 
     public MovieFavoriteAdapter(Activity activity) {
         this.activity = activity;
     }
 
-    public ArrayList<Movie.ResultsBean> getListMovies() {
+    public ArrayList<Movie> getListMovies() {
         return listMovies;
     }
 
-    public void setListMovie(ArrayList<Movie.ResultsBean> listMovies) {
+    public void setListMovie(ArrayList<Movie> listMovies) {
         if (listMovies.size() > 0) {
             this.listMovies.clear();
         }
@@ -50,7 +50,7 @@ public class MovieFavoriteAdapter extends RecyclerView.Adapter<MovieFavoriteAdap
         notifyDataSetChanged();
     }
 
-    public void addItem(Movie.ResultsBean movieItems) {
+    public void addItem(Movie movieItems) {
         this.listMovies.add(movieItems);
         notifyItemInserted(listMovies.size() - 1);
     }

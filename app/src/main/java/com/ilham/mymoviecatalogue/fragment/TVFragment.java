@@ -25,7 +25,7 @@ public class TVFragment extends Fragment {
     private TvListViewModel mViewModel;
     private RecyclerView myrecyclerview;
     private ListTvAdapter listTvAdapter;
-    private ArrayList<Tv.ResultsBean> listTv = new ArrayList<>();
+    private ArrayList<Tv> listTv = new ArrayList<Tv>();
     private ProgressDialog progressBar;
 
 
@@ -67,7 +67,7 @@ public class TVFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        listTv = new ArrayList<>();
+        listTv = new ArrayList<Tv>();
     }
 
 

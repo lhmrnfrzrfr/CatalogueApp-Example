@@ -22,9 +22,9 @@ import java.util.List;
 public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.CardViewViewHolder> {
 
     private Context context;
-    private ArrayList<Movie.ResultsBean> listMovie = new ArrayList<>();
+    private ArrayList<Movie> listMovie = new ArrayList<>();
 
-    public void setFilmArrayList(List<Movie.ResultsBean> films) {
+    public void setFilmArrayList(List<Movie> films) {
         this.listMovie = listMovie;
         listMovie.clear();
         listMovie.addAll(films);
@@ -35,23 +35,23 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.Card
         return true;
     }
 
-    public void setData(ArrayList<Movie.ResultsBean> items) {
+    public void setData(ArrayList<Movie> items) {
         listMovie.clear();
         listMovie.addAll(items);
         notifyDataSetChanged();
     }
 
-    public ListMovieAdapter(Context context, ArrayList<Movie.ResultsBean> listMovie) {
+    public ListMovieAdapter(Context context, ArrayList<Movie> listMovie) {
         this.listMovie = listMovie;
         this.context = context;
     }
 
 
-    public ArrayList<Movie.ResultsBean> getListMovie() {
+    public ArrayList<Movie> getListMovie() {
         return listMovie;
     }
 
-    public void setListMovie(ArrayList<Movie.ResultsBean> movieList) {
+    public void setListMovie(ArrayList<Movie> movieList) {
         this.listMovie = movieList;
         notifyDataSetChanged();
     }
@@ -79,7 +79,7 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.Card
     public void onBindViewHolder(@NonNull CardViewViewHolder holder, int i) {
         if (isAdded()) {
 
-            Movie.ResultsBean movie = getListMovie().get(i);
+            Movie movie = getListMovie().get(i);
             holder.tvName.setText(movie.getTitle());
             holder.tvRemarks.setText(movie.getOverview());
 
