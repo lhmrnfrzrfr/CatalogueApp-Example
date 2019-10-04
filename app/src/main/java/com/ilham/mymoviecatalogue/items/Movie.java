@@ -186,6 +186,13 @@ public class Movie {
             }
         };
 
+        public ResultsBean(int id, String title, String overview, String poster) {
+            this.id = id;
+            this.title = title;
+            this.overview = overview;
+            this.poster_path = poster;
+        }
+
         public int getVote_count() {
             return vote_count;
         }

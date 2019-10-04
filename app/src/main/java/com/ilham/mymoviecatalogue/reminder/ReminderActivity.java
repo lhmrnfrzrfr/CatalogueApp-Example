@@ -61,7 +61,7 @@ public class ReminderActivity extends AppCompatActivity implements View.OnClickL
                     editor.putBoolean("value2", false);
                     editor.apply();
                     sw_release.setChecked(false);
-                    alarmReceiver.cancelAlarm(this, AlarmReceiveNotif.TYPE_RELEASE_REMINDER);
+                    alarmReceiver.alarmOff(this, AlarmReceiveNotif.TYPE_RELEASE_REMINDER);
                 }
                 break;
         }

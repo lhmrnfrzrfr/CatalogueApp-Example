@@ -20,6 +20,7 @@ public final class DatabaseContract {
         public static final String OVERVIEW = "overview";
         public static final String RELEASED = "released";
         public static final String SCORE = "score";
+        public static final String CATEGORY = "category";
 
         public static final Uri CONTENT_URI = new Uri.Builder().scheme(SCHEME)
                 .authority(AUTHORITY)
