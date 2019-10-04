@@ -50,7 +50,7 @@ public class AlarmReceiveNotif extends BroadcastReceiver {
 
     }
 
-    private void showNotification(Context context, String title, String message, int notifId){
+    private void showNotification(Context context, String title, String message, int notifId) {
 
         String CHANNEL_ID = "Channel_Id_1";
         String CHANNEL_NAME = "Channel_Alarm";
@@ -70,7 +70,7 @@ public class AlarmReceiveNotif extends BroadcastReceiver {
                 .setSmallIcon(R.drawable.ic_local_movies_black_24dp)
                 .setContentIntent(pendingIntent);
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
                     CHANNEL_NAME,
@@ -86,12 +86,12 @@ public class AlarmReceiveNotif extends BroadcastReceiver {
         }
         Notification notification = builder.build();
 
-        if(notificationManagerCompat != null) {
+        if (notificationManagerCompat != null) {
             notificationManagerCompat.notify(notifId, notification);
         }
     }
 
-    private void checkMovieRelease(final ReleaseMovieCallbacks callbacks){
+    private void checkMovieRelease(final ReleaseMovieCallbacks callbacks) {
 
         Date date = Calendar.getInstance().getTime();
         @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -99,7 +99,7 @@ public class AlarmReceiveNotif extends BroadcastReceiver {
 
         AsyncHttpClient client = new AsyncHttpClient();
         final ArrayList<Movie> listItems = new ArrayList<>();
-        final String url = "https://api.themoviedb.org/3/discover/movie?api_key=" + API_KEY + "&primary_release_date.gte="+todaydate+"&primary_release_date.lte="+todaydate;
+        final String url = "https://api.themoviedb.org/3/discover/movie?api_key=" + API_KEY + "&primary_release_date.gte=" + todaydate + "&primary_release_date.lte=" + todaydate;
         client.get(url, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -107,14 +107,14 @@ public class AlarmReceiveNotif extends BroadcastReceiver {
                     String result = new String(responseBody);
                     JSONObject responseObject = new JSONObject(result);
                     JSONArray list = responseObject.getJSONArray("results");
-                    for (int i = 0; i < list.length(); i++){
+                    for (int i = 0; i < list.length(); i++) {
                         JSONObject movies = list.getJSONObject(i);
                         Movie movie = new Movie(movies, "movie");
                         listItems.add(movie);
                     }
                     callbacks.onSuccess(listItems);
                     callbacks.onFailure(false);
-                }catch (Exception e){
+                } catch (Exception e) {
                     Log.d("Exception", e.getMessage());
                 }
             }
@@ -132,25 +132,25 @@ public class AlarmReceiveNotif extends BroadcastReceiver {
     @Override
     public void onReceive(final Context context, Intent intent) {
         String type = intent.getStringExtra(EXTRA_TYPE);
-        if(type.equalsIgnoreCase(DAILY_REMINDER)) {
+        if (type.equalsIgnoreCase(DAILY_REMINDER)) {
             String message = intent.getStringExtra(EXTRA_MSG);
             String title = context.getResources().getString(R.string.app_name);
             notifId = ID_DAILY_REMINDER;
-            showNotification(context,title,message,notifId);
-        }else{
+            showNotification(context, title, message, notifId);
+        } else {
             notifId = ID_RELEASE_REMINDER;
             checkMovieRelease(new ReleaseMovieCallbacks() {
                 @Override
                 public void onSuccess(ArrayList<Movie> movies) {
                     listMovies = movies;
-                    for(int i = 0; i < listMovies.size(); i++) {
-                        showNotification(context,listMovies.get(i).getTitle(), listMovies.get(i).getTitle()+"today release!",notifId++);
+                    for (int i = 0; i < listMovies.size(); i++) {
+                        showNotification(context, listMovies.get(i).getTitle(), listMovies.get(i).getTitle() + "today release!", notifId++);
                     }
                 }
 
                 @Override
-                public void onFailure(boolean failure){
-                    if(failure) {
+                public void onFailure(boolean failure) {
+                    if (failure) {
                         Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
 
                     }
@@ -160,7 +160,7 @@ public class AlarmReceiveNotif extends BroadcastReceiver {
 
     }
 
-    public void setAlarmDaily(Context context, String type, boolean check){
+    public void setAlarmDaily(Context context, String type, boolean check) {
         if (check) {
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             Intent intent = new Intent(context, AlarmReceiveNotif.class);
@@ -177,14 +177,12 @@ public class AlarmReceiveNotif extends BroadcastReceiver {
                 alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
             }
             Toast.makeText(context, "Daily Reminder On", Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
+        } else {
             alarmOff(context, AlarmReceiveNotif.DAILY_REMINDER);
         }
     }
 
-    public void setAlarmRelease(Context context, String type){
+    public void setAlarmRelease(Context context, String type) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiveNotif.class);
         intent.putExtra(EXTRA_TYPE, type);
@@ -195,26 +193,26 @@ public class AlarmReceiveNotif extends BroadcastReceiver {
         calendar.set(Calendar.SECOND, 0);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ID_RELEASE_REMINDER, intent, 0);
-        if(alarmManager != null) {
+        if (alarmManager != null) {
             alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
         }
         Toast.makeText(context, "Release reminder on", Toast.LENGTH_SHORT).show();
     }
 
-    public void alarmOff(Context context, String type){
+    public void alarmOff(Context context, String type) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiveNotif.class);
         int requestCode = type.equalsIgnoreCase(RELEASE_REMINDER) ? ID_DAILY_REMINDER : ID_RELEASE_REMINDER;
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0);
         pendingIntent.cancel();
 
-        if (alarmManager != null){
+        if (alarmManager != null) {
             alarmManager.cancel(pendingIntent);
         }
 
-        if(type.equalsIgnoreCase(DAILY_REMINDER)){
+        if (type.equalsIgnoreCase(DAILY_REMINDER)) {
             Toast.makeText(context, "Daily Reminder off", Toast.LENGTH_LONG).show();
-        }else{
+        } else {
             Toast.makeText(context, "Release Reminder off", Toast.LENGTH_LONG).show();
         }
     }

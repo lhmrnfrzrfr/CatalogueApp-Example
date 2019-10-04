@@ -28,50 +28,38 @@ import java.util.Objects;
 
 public class TvFavoriteFragment extends Fragment implements LoadTvsCallback {
 
-    // Widgets, Array, Adapter, Helper Variable Declaration
     RecyclerView rvFavoriteTvs;
     ArrayList<Tv> tvItems;
     TvFavoriteAdapter adapter;
     TvHelper tvHelper;
 
-    // Default Value
     private static final String EXTRA_STATE = "EXTRA_STATE";
 
-    // Empty Constructor
     public TvFavoriteFragment() {
-        // Required empty public constructor
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // MovieItems Instance
         tvItems = new ArrayList<>();
 
-        // Cast Recyclerview
         rvFavoriteTvs = view.findViewById(R.id.rv_tv_favorite);
 
-        // Layout Manager
         rvFavoriteTvs.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
-        // Divider between item list
         DividerItemDecoration itemDecorator = new DividerItemDecoration(Objects.requireNonNull(getContext()), DividerItemDecoration.HORIZONTAL);
         itemDecorator.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(Objects.requireNonNull(getContext()), R.drawable.divider)));
         rvFavoriteTvs.addItemDecoration(itemDecorator);
         rvFavoriteTvs.setHasFixedSize(true);
 
-        // MovieHelper Instance
         tvHelper = new TvHelper(getActivity());
 
-        // Open MovieHelper
         tvHelper.open();
 
-        // Adapter Instance
         adapter = new TvFavoriteAdapter(getActivity());
         adapter.notifyDataSetChanged();
 
-        // Set Adapter
         rvFavoriteTvs.setAdapter(adapter);
 
         // SavedInstanceState

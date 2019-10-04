@@ -33,7 +33,7 @@ public class MovieListViewModel extends ViewModel {
     public void setMovies(final String language, String category) {
         AsyncHttpClient client = new AsyncHttpClient();
         final ArrayList<Movie> listItems = new ArrayList<>();
-        final String url = "https://api.themoviedb.org/3/movie" + "/"+category+"?api_key=" + API_KEY + "&language=" + language;
+        final String url = "https://api.themoviedb.org/3/movie" + "/" + category + "?api_key=" + API_KEY + "&language=" + language;
         client.get(url, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {

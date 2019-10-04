@@ -22,7 +22,7 @@ import com.ilham.mymoviecatalogue.viewModel.MovieListViewModel;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class MovieFragment extends Fragment implements SearchView.OnQueryTextListener, View.OnClickListener{
+public class MovieFragment extends Fragment implements SearchView.OnQueryTextListener, View.OnClickListener {
 
     private View v;
     private MovieListViewModel mViewModel;
@@ -60,7 +60,7 @@ public class MovieFragment extends Fragment implements SearchView.OnQueryTextLis
 
         mViewModel = ViewModelProviders.of(this).get(MovieListViewModel.class);
         //mViewModel.init();
-        mViewModel.setMovies(getCurrentLanguage(),"popular");
+        mViewModel.setMovies(getCurrentLanguage(), "popular");
         mViewModel.getMovies().observe(this, getMovies);
     }
 
@@ -89,7 +89,7 @@ public class MovieFragment extends Fragment implements SearchView.OnQueryTextLis
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        mViewModel.searchMovies(newText,type,getCurrentLanguage());
+        mViewModel.searchMovies(newText, type, getCurrentLanguage());
         mViewModel.getMovies().observe(this, getMovies);
         return false;
     }

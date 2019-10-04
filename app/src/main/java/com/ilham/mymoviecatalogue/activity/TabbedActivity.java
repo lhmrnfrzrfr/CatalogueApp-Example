@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -89,7 +88,7 @@ public class TabbedActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.action_change_settings) {
             Intent mIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
             startActivity(mIntent);
-        } else if (item.getItemId() == R.id.reminder){
+        } else if (item.getItemId() == R.id.reminder) {
             Intent mIntent = new Intent(TabbedActivity.this, ReminderActivity.class);
             startActivity(mIntent);
         }

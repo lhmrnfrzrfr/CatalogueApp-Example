@@ -27,27 +27,20 @@ import com.ilham.mymoviecatalogue.items.Tv;
 
 public class TvShowFavDetailActivity extends AppCompatActivity {
 
-    // Default Keys Values
     public static final int REQUEST_UPDATE = 200;
     public static final int RESULT_DELETE = 301;
 
-    // Position Variable
     private int position;
 
-    // Default Values
     public static final String EXTRA_TV = "extra_tv";
     public static final String EXTRA_POSITION = "extra_position";
 
-    // Database Declaration
     private TvHelper tvHelper;
 
-    // Adapter Declaration
     ListTvAdapter adapter;
 
-    // Instance TV Items
     private Tv tv;
 
-    // Widget Variables Declaration
     TextView txtTitleDetail;
     TextView txtOverviewDetail;
     ImageView posterBanner;
@@ -61,28 +54,21 @@ public class TvShowFavDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tvshow_detail_favorite);
 
-        // Movie Helper Instance
         tvHelper = TvHelper.getInstance(getApplicationContext());
         tvHelper.open();
 
-        // Adapter Instance
-        //adapter = new ListTvAdapter();
         adapter.notifyDataSetChanged();
 
-        // Translucent Status Bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
-        // Casting Data Variables
         txtTitleDetail = findViewById(R.id.txt_title_detail_favorite_tv);
         txtOverviewDetail = findViewById(R.id.txt_overviewDetail_favorite_tv);
         posterBanner = findViewById(R.id.poster_banner_favorite_tv);
         scoreDetailFavoriteTv = findViewById(R.id.score_detail_movie_favorite_tv);
 
-        // Casting Button Variables
         btnBack = findViewById(R.id.btn_back_favorite_tv);
         btnDislike = findViewById(R.id.btn_dislike_movie_favorite_tv);
 
-        // Progress Bar Declaration
         progressBar = findViewById(R.id.progressBar_detailMovie_favorite_tv);
         progressBar.bringToFront();
 
@@ -96,7 +82,6 @@ public class TvShowFavDetailActivity extends AppCompatActivity {
         double score = tv.getVote_average() * 10;
         scoreDetailFavoriteTv.setRating((float) ((score * 5) / 100));
 
-        // Mengisi data image
         String url = "https://image.tmdb.org/t/p/original" + tv.getBackdrop_path();
         Glide.with(TvShowFavDetailActivity.this)
                 .load(url)
@@ -114,7 +99,6 @@ public class TvShowFavDetailActivity extends AppCompatActivity {
                 })
                 .into(posterBanner);
 
-        // setOnClickListener untuk Button Back
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,7 +107,6 @@ public class TvShowFavDetailActivity extends AppCompatActivity {
             }
         });
 
-        // setOnClickListener untuk Button Dislike
         btnDislike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,7 +133,6 @@ public class TvShowFavDetailActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    // Animation onBackPressed
     @Override
     public void onBackPressed() {
         super.onBackPressed();

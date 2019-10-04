@@ -22,7 +22,7 @@ import com.ilham.mymoviecatalogue.viewModel.TvListViewModel;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class TVFragment extends Fragment implements SearchView.OnQueryTextListener, View.OnClickListener{
+public class TVFragment extends Fragment implements SearchView.OnQueryTextListener, View.OnClickListener {
 
     private View v;
     private TvListViewModel mViewModel;
@@ -112,7 +112,7 @@ public class TVFragment extends Fragment implements SearchView.OnQueryTextListen
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        mViewModel.searchMovies(newText,type,getCurrentLanguage());
+        mViewModel.searchMovies(newText, type, getCurrentLanguage());
         mViewModel.getMovies().observe(this, getMovies);
         return false;
     }

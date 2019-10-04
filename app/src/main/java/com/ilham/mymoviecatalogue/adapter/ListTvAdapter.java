@@ -32,11 +32,13 @@ public class ListTvAdapter extends RecyclerView.Adapter<ListTvAdapter.CardViewVi
         this.listTv = listTv;
         this.context = context;
     }
+
     public void setData(ArrayList<Tv> items) {
         listTv.clear();
         listTv.addAll(items);
         notifyDataSetChanged();
     }
+
     public ArrayList<Tv> getListTv() {
         return listTv;
     }

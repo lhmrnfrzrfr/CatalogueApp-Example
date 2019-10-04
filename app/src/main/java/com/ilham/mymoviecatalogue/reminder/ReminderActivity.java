@@ -46,7 +46,7 @@ public class ReminderActivity extends AppCompatActivity implements View.OnClickL
                     editor.apply();
                     sw_dailyreminder.setChecked(false);
                 }
-                alarmReceiver.setAlarmDaily(this,AlarmReceiveNotif.DAILY_REMINDER,check);
+                alarmReceiver.setAlarmDaily(this, AlarmReceiveNotif.DAILY_REMINDER, check);
                 break;
             case R.id.sw_release:
                 boolean check2 = sw_release.isChecked();

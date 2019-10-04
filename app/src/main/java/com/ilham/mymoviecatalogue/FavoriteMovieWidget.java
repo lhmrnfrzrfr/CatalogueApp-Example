@@ -8,7 +8,7 @@ import android.net.Uri;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
-public class FavoriteMovieWidget extends AppWidgetProvider{
+public class FavoriteMovieWidget extends AppWidgetProvider {
 
     public static final String EXTRA_ITEM = "com.ilham.EXTRA_ITEM.mymoviecatalogue";
 
@@ -31,7 +31,7 @@ public class FavoriteMovieWidget extends AppWidgetProvider{
             updateAppWidget(context, appWidgetManager, appWidgetId);
             Toast.makeText(context, "Widget Updated", Toast.LENGTH_SHORT).show();
         }
-        super.onUpdate(context,appWidgetManager,appWidgetIds);
+        super.onUpdate(context, appWidgetManager, appWidgetIds);
     }
 
     @Override

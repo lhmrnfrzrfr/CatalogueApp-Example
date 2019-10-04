@@ -4,7 +4,6 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 
-import com.android.volley.Header;
 import com.ilham.mymoviecatalogue.items.Tv;
 import com.ilham.mymoviecatalogue.repo.TvRepo;
 import com.loopj.android.http.AsyncHttpClient;
