@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -155,7 +156,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                                 editor.putBoolean("Favorite Added", true);
                                 editor.apply();
                                 Intent intent = new Intent();
-                                intent.putExtra(EXTRA_MOVIE, movie);
+                                intent.putExtra(EXTRA_MOVIE, (Parcelable) movie);
                                 intent.putExtra(EXTRA_POSITION, position);
 
                                 ContentValues values = new ContentValues();
@@ -196,7 +197,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                                 editor.putBoolean("Favorite Added", true);
                                 editor.apply();
                                 Intent intent = new Intent();
-                                intent.putExtra(EXTRA_MOVIE, movie);
+                                intent.putExtra(EXTRA_MOVIE, (Parcelable) movie);
                                 intent.putExtra(EXTRA_POSITION, position);
 
                                 ContentValues values = new ContentValues();
@@ -335,7 +336,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     public void addFav() {
         Intent intent = new Intent();
-        intent.putExtra(EXTRA_MOVIE, movie);
+        intent.putExtra(EXTRA_MOVIE, (Parcelable) movie);
         intent.putExtra(EXTRA_POSITION, position);
 
         ContentValues values = new ContentValues();

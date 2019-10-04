@@ -48,23 +48,6 @@ public class TabbedActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             navigation.setSelectedItemId(R.id.nav_movie);
 
-            fabmenu = findViewById(R.id.fabmenu);
-            fabmovie = findViewById(R.id.fabmovie);
-            fabtv = findViewById(R.id.fabtv);
-            fabmovie.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent= new Intent(TabbedActivity.this, MovieFragment.class);
-                    startActivity(intent);
-                }
-            });
-            fabtv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent= new Intent(TabbedActivity.this, TVFragment.class);
-                    startActivity(intent);
-                }
-            });
         }
     }
 

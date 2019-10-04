@@ -22,7 +22,7 @@ import com.ilham.mymoviecatalogue.viewModel.MovieListViewModel;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class MovieFragment extends Fragment implements  SearchView.OnQueryTextListener, View.OnClickListener{
+public class MovieFragment extends Fragment implements SearchView.OnQueryTextListener, View.OnClickListener{
 
     private View v;
     private MovieListViewModel mViewModel;

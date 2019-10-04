@@ -179,7 +179,7 @@ public class AlarmReceiveNotif extends BroadcastReceiver {
             if (alarmManager != null) {
                 alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
             }
-            Toast.makeText(context, "daily reminder on", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Daily Reminder On", Toast.LENGTH_SHORT).show();
         }
         else
         {

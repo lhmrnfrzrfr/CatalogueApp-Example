@@ -2,6 +2,7 @@ package com.ilham.mymoviecatalogue.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -65,7 +66,7 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.Card
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, MovieDetailActivity.class);
-                intent.putExtra("EXTRA_MOVIE", listMovie.get(viewHolder.getAdapterPosition()));
+                intent.putExtra("EXTRA_MOVIE", (Parcelable) listMovie.get(viewHolder.getAdapterPosition()));
                 intent.putExtra("movie_id", listMovie.get(viewHolder.getAdapterPosition()).getId());
                 intent.putExtra("movie_rate", listMovie.get(viewHolder.getAdapterPosition()).getVote_average());
 

@@ -1,4 +1,4 @@
-package com.ilham.mymoviecatalogue.widget;
+package com.ilham.mymoviecatalogue;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,34 +11,31 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.bumptech.glide.Glide;
-import com.ilham.mymoviecatalogue.R;
 import com.ilham.mymoviecatalogue.items.Movie;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 import static android.provider.BaseColumns._ID;
-import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.CATEGORY;
 import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.CONTENT_URI;
 import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.OVERVIEW;
 import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.POSTER;
-import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.SCORE;
 import static com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract.MovieColumns.TITLE;
 
-public class WidgetService extends RemoteViewsService {
+public class StackWidgetService extends RemoteViewsService {
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
-        return new WidgetViewsFactory(this.getApplicationContext());
+        return new StackRemoteViewsFactory(this.getApplicationContext());
     }
 }
 
-class WidgetViewsFactory implements RemoteViewsService.RemoteViewsFactory {
+class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private final ArrayList<Movie> mWidgetItems = new ArrayList<>();
     private final Context mContext;
     private Cursor cursor;
 
-    WidgetViewsFactory(Context context) {
+    StackRemoteViewsFactory(Context context) {
         mContext = context;
     }
 
@@ -50,18 +47,17 @@ class WidgetViewsFactory implements RemoteViewsService.RemoteViewsFactory {
             int id = cursor.getInt(cursor.getColumnIndexOrThrow(_ID));
             String title = cursor.getString(cursor.getColumnIndexOrThrow(TITLE));
             String overview = cursor.getString(cursor.getColumnIndexOrThrow(OVERVIEW));
-            double score = Double.parseDouble(cursor.getString(cursor.getColumnIndexOrThrow(SCORE)));
-            String poster = cursor.getString(cursor.getColumnIndexOrThrow(POSTER));
-            String type = cursor.getString(cursor.getColumnIndexOrThrow(CATEGORY));
-            mWidgetItems.add(new Movie(id, title, overview, poster));
-            Log.d("Check", title);
+            String poster_path = cursor.getString(cursor.getColumnIndexOrThrow(POSTER));
+            mWidgetItems.add(new Movie(id, title, overview, poster_path));
+            Log.d("ceking", title);
         }
     }
 
     @Override
     public void onDataSetChanged() {
         final long identityToken = Binder.clearCallingIdentity();
-        cursor = mContext.getContentResolver().query(CONTENT_URI, null, null, null, null);
+        cursor = mContext.getContentResolver().query(CONTENT_URI, null, null,
+                null, null);
         Binder.restoreCallingIdentity(identityToken);
     }
 
@@ -77,6 +73,7 @@ class WidgetViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
     @Override
     public RemoteViews getViewAt(int position) {
+
 
         RemoteViews rv = new RemoteViews(mContext.getPackageName(), R.layout.widget_layout);
         rv.setTextViewText(R.id.tv_titlewidget, mWidgetItems.get(position).getTitle());
@@ -96,10 +93,10 @@ class WidgetViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
         Bundle extras = new Bundle();
         extras.putInt(FavoriteMovieWidget.EXTRA_ITEM, position);
-        Intent fillIntent = new Intent();
-        fillIntent.putExtras(extras);
+        Intent fillInIntent = new Intent();
+        fillInIntent.putExtras(extras);
 
-        rv.setOnClickFillInIntent(R.id.iv_photowidget, fillIntent);
+        rv.setOnClickFillInIntent(R.id.iv_photowidget, fillInIntent);
         return rv;
     }
 
@@ -123,3 +120,4 @@ class WidgetViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         return false;
     }
 }
+

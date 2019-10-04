@@ -48,15 +48,5 @@ public class FavoriteFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_favorite, container, false);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-    }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
-    }
 }

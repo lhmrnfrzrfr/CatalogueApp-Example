@@ -37,11 +37,13 @@ public class TvListViewModel extends ViewModel {
     public MutableLiveData<Tv> getTv() {
         return this.tvData;
     }
-    public void setMovies(final String language, String category) {
+
+    public void searchMovies(final String text, final String type, String language) {
         AsyncHttpClient client = new AsyncHttpClient();
         final ArrayList<Tv> listItems = new ArrayList<>();
-        final String url = "https://api.themoviedb.org/3/tv" + "/"+category+"?api_key=" + API_KEY + "&language=" + language;
+        final String url = "https://api.themoviedb.org/3/search/" + type + "?api_key=" + API_KEY + "&language=" + language + "en-US&query=" + text;
         client.get(url, new AsyncHttpResponseHandler() {
+
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody) {
                 try {
@@ -62,8 +64,13 @@ public class TvListViewModel extends ViewModel {
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
                 Log.d("onFailure", error.getMessage());
+
             }
         });
+    }
+
+    public MutableLiveData<ArrayList<Tv>> getMovies() {
+        return listTv;
     }
 }
 

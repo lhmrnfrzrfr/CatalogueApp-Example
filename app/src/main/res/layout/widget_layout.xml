@@ -5,7 +5,7 @@
     android:layout_height="180dp">
 
     <ImageView
-        android:contentDescription="movie image"
+        android:contentDescription="@string/poster"
         android:id="@+id/iv_photowidget"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,7 +25,7 @@
         android:paddingBottom="16dp"
         android:maxLines="2"
         android:minLines="1"
-        android:text="string movies"
+        android:text="@string/movie"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="24sp"

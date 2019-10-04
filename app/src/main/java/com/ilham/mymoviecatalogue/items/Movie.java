@@ -9,11 +9,12 @@ import com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.List;
 
 import static android.provider.BaseColumns._ID;
 
-    public class Movie implements Parcelable {
+    public class Movie implements Parcelable, Serializable {
         /**
          * vote_count : 697
          * id : 420818

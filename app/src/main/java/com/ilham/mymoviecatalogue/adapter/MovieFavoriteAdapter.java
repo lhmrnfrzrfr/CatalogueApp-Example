@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -102,7 +103,7 @@ public class MovieFavoriteAdapter extends RecyclerView.Adapter<MovieFavoriteAdap
                 intent.setData(uri);
 
                 intent.putExtra(MovieFavDetailActivity.EXTRA_POSITION, position);
-                intent.putExtra(MovieFavDetailActivity.EXTRA_MOVIE, listMovies.get(position));
+                intent.putExtra(MovieFavDetailActivity.EXTRA_MOVIE, (Parcelable) listMovies.get(position));
                 activity.startActivityForResult(intent, MovieFavDetailActivity.REQUEST_UPDATE);
 
                 activity.overridePendingTransition(R.anim.slide_up, R.anim.no_animation);
