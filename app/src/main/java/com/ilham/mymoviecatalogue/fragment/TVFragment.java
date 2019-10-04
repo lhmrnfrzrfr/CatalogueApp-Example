@@ -28,9 +28,9 @@ public class TVFragment extends Fragment implements SearchView.OnQueryTextListen
     private TvListViewModel mViewModel;
     private RecyclerView myrecyclerview;
     private ListTvAdapter listTvAdapter;
-    private ArrayList<Tv> listTv = new ArrayList<Tv>();
+    private ArrayList<Tv> listTv = new ArrayList<>();
     private ProgressDialog progressBar;
-    private final String type = "movie";
+    private final String type = "tv";
 
 
     public static TVFragment newInstance() {

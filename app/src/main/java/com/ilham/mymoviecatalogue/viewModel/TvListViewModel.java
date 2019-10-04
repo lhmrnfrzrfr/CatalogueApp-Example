@@ -40,7 +40,7 @@ public class TvListViewModel extends ViewModel {
 
     public void searchMovies(final String text, final String type, String language) {
         AsyncHttpClient client = new AsyncHttpClient();
-        final ArrayList<Tv> listItems = new ArrayList<>();
+        final ArrayList<Tv> tvData = new ArrayList<>();
         final String url = "https://api.themoviedb.org/3/search/" + type + "?api_key=" + API_KEY + "&language=" + language + "en-US&query=" + text;
         client.get(url, new AsyncHttpResponseHandler() {
 
@@ -53,9 +53,9 @@ public class TvListViewModel extends ViewModel {
                     for (int i = 0; i < list.length(); i++) {
                         JSONObject tvs = list.getJSONObject(i);
                         Tv tv = new Tv(tvs);
-                        listItems.add(tv);
+                        tvData.add(tv);
                     }
-                    listTv.postValue(listItems);
+                    listTv.postValue(tvData);
                 } catch (Exception e) {
                     Log.d("Exception", e.getMessage());
                 }

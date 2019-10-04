@@ -1,9 +1,11 @@
 package com.ilham.mymoviecatalogue.items;
 
+import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.ilham.mymoviecatalogue.database.favoritemovie.DatabaseContract;
 
 import org.json.JSONObject;
 
@@ -226,18 +228,28 @@ import static android.provider.BaseColumns._ID;
             dest.writeStringList(origin_country);
         }
 
+        public Tv(Cursor cursor) {
+            this.id = DatabaseContract.getColumnInt(cursor, _ID);
+            this.name = DatabaseContract.getColumnString(cursor, DatabaseContract.MovieColumns.TITLE);
+            this.first_air_date = DatabaseContract.getColumnString(cursor, DatabaseContract.MovieColumns.RELEASED);
+            this.poster_path = DatabaseContract.getColumnString(cursor, DatabaseContract.MovieColumns.POSTER);
+            this.overview = DatabaseContract.getColumnString(cursor, DatabaseContract.MovieColumns.OVERVIEW);
+            this.backdrop_path = DatabaseContract.getColumnString(cursor, DatabaseContract.MovieColumns.BACKDROP);
+            this.vote_average = DatabaseContract.getColumnDouble(cursor, DatabaseContract.MovieColumns.SCORE);
+        }
+
         public Tv(JSONObject object) {
             try {
                 int id = object.getInt("id");
-                String title = object.getString("title");
-                String released = object.getString("release_date");
+                String name = object.getString("name");
+                String first_air_date = object.getString("first_air_date");
                 String overview = object.getString("overview");
                 String poster = object.getString("poster_path");
                 String backdrop = object.getString("backdrop_path");
                 double score = object.getDouble("vote_average");
                 this.id = id;
-                this.name = title;
-                this.first_air_date = released;
+                this.name = name;
+                this.first_air_date = first_air_date;
                 this.overview = overview;
                 this.poster_path = poster;
                 this.backdrop_path = backdrop;
