@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 public class FavoriteMovieWidget extends AppWidgetProvider{
 
-    public static final String EXTRA_ITEM = "com.ilham.EXTRA_ITEM";
+    public static final String EXTRA_ITEM = "com.ilham.EXTRA_ITEM.mymoviecatalogue";
 
     private void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
 

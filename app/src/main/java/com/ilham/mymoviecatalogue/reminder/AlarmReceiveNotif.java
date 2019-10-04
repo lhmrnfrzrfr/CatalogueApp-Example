@@ -36,18 +36,15 @@ import cz.msebera.android.httpclient.Header;
 import static com.ilham.mymoviecatalogue.ApiUrl.API_KEY;
 
 public class AlarmReceiveNotif extends BroadcastReceiver {
-    public static final String TYPE_RELEASE_REMINDER = "ReleaseMovie";
-    public static final String TYPE_DAILY_REMINDER = "DailyMovie";
-
-    private static final String EXTRA_TYPE = "type";
-    private static final String EXTRA_MESSAGE = "message";
 
     private ArrayList<Movie> listMovies = new ArrayList<>();
-
-    private int notifId;
-
+    private static final String EXTRA_TYPE = "type";
+    private static final String EXTRA_MSG = "message";
+    public static final String RELEASE_REMINDER = "ReleaseMovie";
+    public static final String DAILY_REMINDER = "DailyMovie";
     private final static int ID_DAILY_REMINDER = 100;
     private final static int ID_RELEASE_REMINDER = 101;
+    private int notifId;
 
     public AlarmReceiveNotif() {
 
@@ -56,19 +53,19 @@ public class AlarmReceiveNotif extends BroadcastReceiver {
     @Override
     public void onReceive(final Context context, Intent intent) {
         String type = intent.getStringExtra(EXTRA_TYPE);
-        if(type.equalsIgnoreCase(TYPE_DAILY_REMINDER)) {
-            String message = intent.getStringExtra(EXTRA_MESSAGE);
+        if(type.equalsIgnoreCase(DAILY_REMINDER)) {
+            String message = intent.getStringExtra(EXTRA_MSG);
             String title = context.getResources().getString(R.string.app_name);
             notifId = ID_DAILY_REMINDER;
-            showAlarmNotification(context,title,message,notifId);
+            showNotification(context,title,message,notifId);
         }else{
             notifId = ID_RELEASE_REMINDER;
-            checkNewReleaseMovies(new ReleaseMovieCallbacks() {
+            checkMovieRelease(new ReleaseMovieCallbacks() {
                 @Override
                 public void onSuccess(ArrayList<Movie> movies) {
                     listMovies = movies;
                     for(int i = 0; i < listMovies.size(); i++) {
-                        showAlarmNotification(context,listMovies.get(i).getTitle(), listMovies.get(i).getTitle()+"today release!",notifId++);
+                        showNotification(context,listMovies.get(i).getTitle(), listMovies.get(i).getTitle()+"today release!",notifId++);
                     }
                 }
 
@@ -84,7 +81,7 @@ public class AlarmReceiveNotif extends BroadcastReceiver {
 
     }
 
-    private void checkNewReleaseMovies(final ReleaseMovieCallbacks callbacks){
+    private void checkMovieRelease(final ReleaseMovieCallbacks callbacks){
 
         Date date = Calendar.getInstance().getTime();
         @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -122,7 +119,7 @@ public class AlarmReceiveNotif extends BroadcastReceiver {
         });
     }
 
-    private void showAlarmNotification(Context context, String title, String message, int notifId){
+    private void showNotification(Context context, String title, String message, int notifId){
 
         String CHANNEL_ID = "Channel_Id_1";
         String CHANNEL_NAME = "Channel_Alarm";
@@ -167,7 +164,7 @@ public class AlarmReceiveNotif extends BroadcastReceiver {
         if (check) {
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             Intent intent = new Intent(context, AlarmReceiveNotif.class);
-            intent.putExtra(EXTRA_MESSAGE, context.getResources().getString(R.string.check_daily));
+            intent.putExtra(EXTRA_MSG, context.getResources().getString(R.string.check_daily));
             intent.putExtra(EXTRA_TYPE, type);
 
             Calendar calendar = Calendar.getInstance();
@@ -183,7 +180,7 @@ public class AlarmReceiveNotif extends BroadcastReceiver {
         }
         else
         {
-            alarmOff(context, AlarmReceiveNotif.TYPE_DAILY_REMINDER);
+            alarmOff(context, AlarmReceiveNotif.DAILY_REMINDER);
         }
     }
 
@@ -207,7 +204,7 @@ public class AlarmReceiveNotif extends BroadcastReceiver {
     public void alarmOff(Context context, String type){
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiveNotif.class);
-        int requestCode = type.equalsIgnoreCase(TYPE_RELEASE_REMINDER) ? ID_DAILY_REMINDER : ID_RELEASE_REMINDER;
+        int requestCode = type.equalsIgnoreCase(RELEASE_REMINDER) ? ID_DAILY_REMINDER : ID_RELEASE_REMINDER;
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0);
         pendingIntent.cancel();
 
@@ -215,7 +212,7 @@ public class AlarmReceiveNotif extends BroadcastReceiver {
             alarmManager.cancel(pendingIntent);
         }
 
-        if(type.equalsIgnoreCase(TYPE_DAILY_REMINDER)){
+        if(type.equalsIgnoreCase(DAILY_REMINDER)){
             Toast.makeText(context, "Daily Reminder off", Toast.LENGTH_LONG).show();
         }else{
             Toast.makeText(context, "Release Reminder off", Toast.LENGTH_LONG).show();

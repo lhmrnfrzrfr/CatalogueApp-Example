@@ -46,7 +46,7 @@ public class ReminderActivity extends AppCompatActivity implements View.OnClickL
                     editor.apply();
                     sw_dailyreminder.setChecked(false);
                 }
-                alarmReceiver.setAlarmDaily(this,AlarmReceiveNotif.TYPE_DAILY_REMINDER,check);
+                alarmReceiver.setAlarmDaily(this,AlarmReceiveNotif.DAILY_REMINDER,check);
                 break;
             case R.id.sw_release:
                 boolean check2 = sw_release.isChecked();
@@ -55,13 +55,13 @@ public class ReminderActivity extends AppCompatActivity implements View.OnClickL
                     editor.putBoolean("value2", true);
                     editor.apply();
                     sw_release.setChecked(true);
-                    alarmReceiver.setAlarmRelease(this, AlarmReceiveNotif.TYPE_RELEASE_REMINDER);
+                    alarmReceiver.setAlarmRelease(this, AlarmReceiveNotif.RELEASE_REMINDER);
                 } else {
                     SharedPreferences.Editor editor = getSharedPreferences("save", MODE_PRIVATE).edit();
                     editor.putBoolean("value2", false);
                     editor.apply();
                     sw_release.setChecked(false);
-                    alarmReceiver.alarmOff(this, AlarmReceiveNotif.TYPE_RELEASE_REMINDER);
+                    alarmReceiver.alarmOff(this, AlarmReceiveNotif.RELEASE_REMINDER);
                 }
                 break;
         }
